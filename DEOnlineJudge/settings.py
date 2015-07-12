@@ -37,6 +37,12 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'system.users',
+
+    'app.discussion',
+    'app.page',
+    'app.problem',
+    'app.record',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -100,6 +106,25 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.8/howto/static-files/
 
 STATIC_URL = '/static/'
+
+AUTH_USER_MODEL = 'users.User'
+
+# REST FRAMEWORK
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.BasicAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+    ),
+    'DEFAULT_FILTER_BACKENDS': (
+        'rest_framework.filters.DjangoFilterBackend',
+        'rest_framework.filters.SearchFilter',
+        'rest_framework.filters.OrderingFilter',
+    ),
+    'PAGINATE_BY': 10,
+    'PAGINATE_BY_PARAM': 'per_page',
+    'MAX_PAGINATE_BY': 100,
+}
 
 try:
     from local_settings import *
