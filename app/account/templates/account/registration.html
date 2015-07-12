@@ -1,7 +1,7 @@
 {% extends 'account/base.html' %}
 {% load staticfiles %}
 
-{% block title %}登录{% endblock %}
+{% block title %}注册{% endblock %}
 
 {% block content %}
     <div class="regpanel">
@@ -10,18 +10,24 @@
                 <div class="pageicon"><span class="iconfa-hand-down"></span></div>
                 <div class="pagetitle">
                     <h5>DE Online Judge</h5>
-                    <h1>账户登录</h1>
+                    <h1>账户注册</h1>
                 </div>
             </div>
             <div class="regcontent">
                 <form action="" method="post" class="stdform" id="login-form">
                     <h3 class="subtitle">用户名</h3>
                     <p><input type="text" name="username" class="form-control" placeholder=""/></p>
+                    <h3 class="subtitle">邮箱</h3>
+                    <p><input type="email" name="email" class="form-control" placeholder=""/></p>
                     <h3 class="subtitle">密码</h3>
                     <p><input type="password" name="password" class="form-control" placeholder=""/></p>
+                    <h3 class="subtitle">确认密码</h3>
+                    <p><input type="password" name="confirm-password" class="form-control" placeholder=""/></p>
+                    <h3 class="subtitle">昵称</h3>
+                    <p><input type="text" name="nickname" class="form-control" placeholder=""/></p>
                     <br/>
                     <p>
-                        <button class="btn btn-primary">登录</button>
+                        <button class="btn btn-primary">注册</button>
                     </p>
                 </form>
             </div>
