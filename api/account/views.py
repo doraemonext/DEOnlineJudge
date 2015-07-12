@@ -2,6 +2,7 @@
 
 from django.contrib.auth import authenticate, login, logout, get_user_model
 from django.core.urlresolvers import reverse
+from django.db import IntegrityError
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import permissions
@@ -30,7 +31,13 @@ class RegistrationAPI(APIView):
             redirect_url = serializer.data.get('next')
 
             User = get_user_model()
-            User.objects.create_user(username=username, email=email, nickname=nickname, password=password)
+            try:
+                User.objects.create_user(username=username, email=email, nickname=nickname, password=password)
+            except IntegrityError:
+                response = {
+                    'username': [u'重复的用户名'],
+                }
+                return Response(response, status=status.HTTP_400_BAD_REQUEST)
             user = authenticate(username=username, password=password)
             if user:
                 login(request, user)
