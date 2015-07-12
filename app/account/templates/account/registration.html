@@ -14,20 +14,20 @@
                 </div>
             </div>
             <div class="regcontent">
-                <form action="" method="post" class="stdform" id="login-form">
+                <form method="post" class="stdform" id="registration-form">
                     <h3 class="subtitle">用户名</h3>
                     <p><input type="text" name="username" class="form-control" placeholder=""/></p>
                     <h3 class="subtitle">邮箱</h3>
-                    <p><input type="email" name="email" class="form-control" placeholder=""/></p>
+                    <p><input type="text" name="email" class="form-control" placeholder=""/></p>
                     <h3 class="subtitle">密码</h3>
                     <p><input type="password" name="password" class="form-control" placeholder=""/></p>
                     <h3 class="subtitle">确认密码</h3>
-                    <p><input type="password" name="confirm-password" class="form-control" placeholder=""/></p>
+                    <p><input type="password" name="confirm_password" class="form-control" placeholder=""/></p>
                     <h3 class="subtitle">昵称</h3>
                     <p><input type="text" name="nickname" class="form-control" placeholder=""/></p>
                     <br/>
                     <p>
-                        <button class="btn btn-primary">注册</button>
+                        <button type="submit" class="btn btn-primary">注册</button>
                     </p>
                 </form>
             </div>
@@ -36,4 +36,39 @@
         <!--regpanelinner-->
     </div>
     <!--regpanel-->
+{% endblock %}
+
+{% block customjs %}
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#registration-form').ajaxForm({
+                dataType: "json",
+                url: "{% url 'api:account:registration' %}",
+                success: function(data) {
+                    window.location.href = data["redirect_url"];
+                },
+                statusCode: {
+                    400: function(xhr) {
+                        var data = $.parseJSON(xhr.responseText);
+
+                        if ('username' in data) {
+                            $.makeDangerAlert(data['username'][0]);
+                        } else if ('email' in data) {
+                            $.makeDangerAlert(data['email'][0]);
+                        } else if ('nickname' in data) {
+                            $.makeDangerAlert(data['nickname'][0]);
+                        } else if ('password' in data) {
+                            $.makeDangerAlert(data['password'][0]);
+                        } else if ('confirm_password' in data) {
+                            $.makeDangerAlert(data['confirm_password'][0]);
+                        } else if ('next' in data) {
+                            $.makeDangerAlert(data['next'][0]);
+                        } else {
+                            $.makeDangerAlert(data['non_field_errors'][0]);
+                        }
+                    }
+                }
+            });
+        });
+    </script>
 {% endblock %}
