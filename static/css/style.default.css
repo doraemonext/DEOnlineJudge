@@ -1114,7 +1114,7 @@ ul.list-inline li { display: inline-block; margin: 0 5px 10px 0; }
 }
 .topicpanel .author-thumb { float: left; overflow: hidden; width: 70px; }
 .topicpanel .author-thumb img { width: 100%; }
-.topicpanel .topic-content { margin-left: 90px; }
+.topicpanel .topic-content { margin-left: 0; }
 .topicpanel h5 { font-size: 14px; }
 .topicpanel .topic-content p { margin: 15px 0; }
 .topicpanel .topic-content p:first-child { margin-top: 0; }
