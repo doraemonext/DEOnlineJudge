@@ -21,7 +21,7 @@ class LoginView(AnonymousRequiredMixin, TemplateView):
         if next:
             return next
         else:
-            return reverse('app:index:index')
+            return reverse('index:index')
 
     def get(self, request, *args, **kwargs):
         context = self.get_context_data(**kwargs)
@@ -42,7 +42,7 @@ class RegistrationView(AnonymousRequiredMixin, TemplateView):
         if next:
             return next
         else:
-            return reverse('app:index:index')
+            return reverse('index:index')
 
     def get(self, request, *args, **kwargs):
         context = self.get_context_data(**kwargs)

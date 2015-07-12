@@ -5,7 +5,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-        <title>DE Online Judge - {% block title %}{% endblock %}</title>
+        <title>{% block title %}{% endblock %} - DE Online Judge</title>
         <link rel="stylesheet" href="{% static 'css/style.default.css' %}" type="text/css"/>
         <link rel="stylesheet" href="{% static 'css/style.navyblue.css' %}" type="text/css"/>
         {% block customcss %}{% endblock %}
@@ -13,6 +13,8 @@
         <script type="text/javascript" src="{% static 'js/jquery-1.10.2.min.js' %}"></script>
         <script type="text/javascript" src="{% static 'js/jquery-migrate-1.2.1.min.js' %}"></script>
         <script type="text/javascript" src="{% static 'js/jquery-ui-1.10.3.min.js' %}"></script>
+        <script type="text/javascript" src="{% static 'js/jquery.validate.min.js' %}"></script>
+        <script type="text/javascript" src="{% static 'js/jquery.form.min.js' %}"></script>
         <script type="text/javascript" src="{% static 'js/modernizr.min.js' %}"></script>
         <script type="text/javascript" src="{% static 'js/bootstrap.min.js' %}"></script>
         <script type="text/javascript" src="{% static 'js/jquery.cookies.js' %}"></script>

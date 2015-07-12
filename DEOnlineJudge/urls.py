@@ -7,6 +7,7 @@ from django.conf.urls import include, url
 from django.contrib import admin
 
 urlpatterns = [
+    url(r'^api/', include('api.urls', namespace='api')),
     url(r'^index/', include('app.index.urls', namespace='index')),
     url(r'^account/', include('app.account.urls', namespace='account')),
     url(r'^problem/', include('app.problem.urls', namespace='problem')),

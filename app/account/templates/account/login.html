@@ -14,7 +14,7 @@
                 </div>
             </div>
             <div class="regcontent">
-                <form action="" method="post" class="stdform" id="login-form">
+                <form action="{% url 'account:api_login' %}" method="post" class="stdform" id="login-form">
                     <h3 class="subtitle">用户名</h3>
                     <p><input type="text" name="username" class="form-control" placeholder=""/></p>
                     <h3 class="subtitle">密码</h3>
@@ -25,9 +25,14 @@
                     </p>
                 </form>
             </div>
-            <!--regcontent-->
         </div>
-        <!--regpanelinner-->
     </div>
-    <!--regpanel-->
+{% endblock %}
+
+{% block customjs %}
+    <script type="text/javascript">
+        jQuery(document).ready(function () {
+
+        });
+    </script>
 {% endblock %}
