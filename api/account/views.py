@@ -50,6 +50,6 @@ class LogoutAPI(APIView):
     def post(self, request):
         logout(request)
         response = {
-            'redirect_url': reverse('account:login'),
+            'redirect_url': reverse('index:index'),
         }
         return Response(response, status=status.HTTP_200_OK)
