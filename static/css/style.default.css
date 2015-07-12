@@ -357,10 +357,10 @@ h1,h2,h3,h4,h5 { font-weight: normal; line-height: normal; }
 .stdform span.field, .stdform div.field { margin-left: 220px; display: block; position: relative; }
 .stdform .formwrapper { display: block; padding-top: 5px; margin-left: 220px; line-height: 25px; }
 .stdform label { float: left; width: 200px; text-align: right; padding: 5px 20px 0 0; }
-.stdform label.error {
+/*.stdform label.error {
 	float: none; display: block; font-size: 11px; color: #ff0000; text-align: left;
 	padding: 0; width: auto; margin-left: 220px;
-}
+}*/
 .stdform label.valid { color: #468847; }
 .stdform small.desc { font-size: 11px; color: #999; font-style: italic; display: block; margin: 5px 0 0 220px; }
 .stdform .stdformbutton { margin-left: 220px; }

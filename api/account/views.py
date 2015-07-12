@@ -44,7 +44,7 @@ class LoginAPI(APIView):
 
 
 class LogoutAPI(APIView):
-    permission_classes = (permissions.AllowAny, )
+    permission_classes = (permissions.IsAuthenticated, )
     parser_classes = (parsers.FormParser, )
 
     def post(self, request):
