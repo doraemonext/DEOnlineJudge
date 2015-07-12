@@ -70,18 +70,27 @@
                         </li>
                         <li class="right">
                             <div class="userloggedinfo">
-                                <img src="{% static 'images/photos/thumb1.png' %}" alt=""/>
+                                {% if user.is_authenticated %}
+                                    <img src="{% static 'images/photos/Doraemonext.png' %}" alt=""/>
 
-                                <div class="userinfo">
-                                    <h5>Ace Kwok
-                                        <small>- doraemonext@gmail.com</small>
-                                    </h5>
-                                    <ul>
-                                        <li><a href="#">我的记录</a></li>
-                                        <li><a href="#">账户设置</a></li>
-                                        <li><a href="#">登出</a></li>
-                                    </ul>
-                                </div>
+                                    <div class="userinfo">
+                                        <h5>{{ user.nickname }}
+                                            <small>- {{ user.email }}</small>
+                                        </h5>
+                                        <ul>
+                                            <li><a class="option" href="#">我的记录</a></li>
+                                            <li><a class="option" href="#">账户设置</a></li>
+                                            <li><a class="option" id="logout" href="#">登出</a></li>
+                                        </ul>
+                                    </div>
+                                {% else %}
+                                    <div class="userinfo">
+                                        <ul style="width: 180px">
+                                            <li><a href="{% url 'account:login' %}" class="btn btn-block btn-info">登录</a></li>
+                                            <li style="margin-top: 15px"><a href="{% url 'account:registration' %}" class="btn btn-block btn-success">注册</a></li>
+                                        </ul>
+                                    </div>
+                                {% endif %}
                             </div>
                         </li>
                     </ul>
@@ -104,6 +113,31 @@
             </div>
         </div>
 
+        {% if user.is_authenticated %}
+            <script type="text/javascript">
+                $(document).ready(function () {
+                    $('#logout').click(function () {
+                        $.ajax({
+                            type: "POST",
+                            dataType: "json",
+                            url: "{% url 'api:account:logout' %}",
+                            cache: false,
+                            beforeSend: function (xhr, settings) {
+                                $.makeCsrf(xhr, settings);
+                            },
+                            success: function(data) {
+                                window.location.href = data["redirect_url"];
+                            },
+                            statusCode: {
+                                400: function(xhr) {
+                                    $.makeDangerAlert("登出过程中出错，请重试")
+                                }
+                            }
+                        });
+                    });
+                });
+            </script>
+        {% endif %}
         {% block customjs %}{% endblock %}
     </body>
 </html>

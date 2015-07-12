@@ -22,38 +22,6 @@ $(document).ready(function(){
 	}
 	
 	
-   // add menu bar for phones and tablet
-   $('<div class="topbar"><a class="barmenu">'+
-		    '</a><div class="chatmenu"></a></div>').insertBefore('.mainwrapper');
-	
-	$('.topbar .barmenu').click(function() {
-		  
-		  var lwidth = '260px';
-		  if($(window).width() < 340) {
-					 lwidth = '260px';
-		  }
-		  
-		  if(!$(this).hasClass('open')) {
-					 $('.rightpanel, .headerinner, .topbar').css({marginLeft: lwidth},'fast');
-					 $('.logo, .leftpanel').css({marginLeft: 0},'fast');
-					 $(this).addClass('open');
-		  } else {
-					 $('.rightpanel, .headerinner, .topbar').css({marginLeft: 0},'fast');
-					 $('.logo, .leftpanel').css({marginLeft: '-'+lwidth},'fast');
-					 $(this).removeClass('open');
-		  }
-	});
-	
-	$('.topbar .chatmenu').click(function(){
-		if(!$('.onlineuserpanel').is(':visible')) {
-			$('.onlineuserpanel,#chatwindows').show();
-			$('.topbar .chatmenu').css({right: '210px'});
-		} else {
-			$('.onlineuserpanel, #chatwindows').hide();
-			$('.topbar .chatmenu').css({right: '10px'});
-		}
-	});
-
 	//// show/hide left menu
 	//$(window).resize(function () {
 	//	if ($('.topbar').is(':visible')) {
@@ -161,7 +129,7 @@ $(document).ready(function(){
 	}
 
     // 设置CSRF
-    function getCookie(name) {
+	$.getCookie = function getCookie(name) {
         var cookieValue = null;
         if (document.cookie && document.cookie != '') {
             var cookies = document.cookie.split(';');
@@ -175,21 +143,26 @@ $(document).ready(function(){
             }
         }
         return cookieValue;
-    }
+    };
 
-    function csrfSafeMethod(method) {
+	$.csrfSafeMethod = function csrfSafeMethod(method) {
         // these HTTP methods do not require CSRF protection
         return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
-    }
+    };
 
-    var csrftoken = getCookie('csrftoken');
+	$.csrftoken = $.getCookie('csrftoken');
     $.ajaxSetup({
         beforeSend: function (xhr, settings) {
-            if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
-                xhr.setRequestHeader("X-CSRFToken", csrftoken);
-            }
+			if (!$.csrfSafeMethod(settings.type) && !this.crossDomain) {
+				xhr.setRequestHeader("X-CSRFToken", $.csrftoken);
+			}
         }
     });
+	$.makeCsrf = function (xhr, settings) {
+		if (!$.csrfSafeMethod(settings.type) && !this.crossDomain) {
+			xhr.setRequestHeader("X-CSRFToken", $.csrftoken);
+		}
+	};
 
 	$.makeDangerAlert = function (content) {
 		$.alerts.dialogClass = 'alert-danger';

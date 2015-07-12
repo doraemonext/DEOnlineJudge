@@ -163,13 +163,15 @@ h1,h2,h3,h4,h5 { font-weight: normal; line-height: normal; }
 .newusers small { color: #999; line-height: normal; }
 
 .userloggedinfo { padding: 11px; color: #fff; }
-.userloggedinfo img { padding: 3px; background: rgba(255,255,255,0.2); width: 85px; float: left; }
+.userloggedinfo img { padding: 3px; background: rgba(255,255,255,0.2); width: 92px; float: left; }
 .userloggedinfo .userinfo { float: left; margin-left: 10px; }
-.userloggedinfo .userinfo small { font-size: 11px; opacity: 0.6; color: #fff; font-family: sans-serif; font-style: italic; }
+.userloggedinfo .userinfo h5 { margin-left: 5px; }
+.userloggedinfo .userinfo small { font-size: 11px; opacity: 0.6; color: #fff; font-family: sans-serif; }
 .userloggedinfo ul { list-style: none; margin-top: 5px; }
 .userloggedinfo ul li { display: block; font-size: 11px; line-height: normal; margin-bottom: 1px; }
-.userloggedinfo ul li a { padding: 4px 5px 3px 5px; color: #fff; line-height: normal; background: rgba(255,255,255,0.1); display: block; }
-.userloggedinfo ul li a:hover { text-decoration: none; background: rgba(255,255,255,0.2); }
+.userloggedinfo ul li .btn { color: #fff; }
+.userloggedinfo ul li .option { padding: 4px 5px 3px 5px; color: #fff; line-height: normal; background: rgba(255,255,255,0.1); display: block; }
+.userloggedinfo ul li .option:hover { text-decoration: none; background: rgba(255,255,255,0.2); }
 
 .no-borderradius .userloggedinfo .userinfo { float: none; margin-left: 92px; }
 

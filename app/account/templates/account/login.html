@@ -38,10 +38,6 @@
             $('#login-form').ajaxForm({
                 dataType: "json",
                 url: "{% url 'api:account:login' %}",
-                beforeSend: function() {
-                    $("button[type=submit]").attr("disabled", "disabled");
-                    $("button[type=submit]").text("登录中…");
-                },
                 success: function(data) {
                     window.location.href = data["redirect_url"];
                 },
@@ -58,10 +54,6 @@
                             $.makeDangerAlert(data['non_field_errors'][0]);
                         }
                     }
-                },
-                complete: function() {
-                    $("button[type=submit]").removeAttr("disabled");
-                    $("button[type=submit]").text("登录");
                 }
             });
         });
