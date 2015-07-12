@@ -1,0 +1,153 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block title %}DE Online Judge - 题目列表{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-9">
+            <h3 class="subtitle2">题目列表</h3>
+            <br/>
+            <table class="table discussions">
+                <colgroup>
+                    <col class="width5"/>
+                    <col class="width60"/>
+                    <col class="width10"/>
+                    <col class="width10"/>
+                    <col class="width15"/>
+                </colgroup>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>名称</th>
+                        <th>AC 人数</th>
+                        <th>提交人数</th>
+                        <th>来源</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>11</td>
+                        <td><a id="topic" href="topic.html" data-placement="top" data-toggle="tooltip"
+                               data-original-title="Click me to view topic page">Sed ut perspiciatis unde omnis iste
+                            natus error sit</a></td>
+                        <td><a href="">General</a></td>
+                        <td>33</td>
+                        <td>Jan, 20, 2013</td>
+                    </tr>
+                    <tr>
+                        <td>11</td>
+                        <td><a href="topic.html">At vero eos et accusamus et iusto odio dignissimos ducimus</a></td>
+                        <td><a href="">iOS</a></td>
+                        <td>14</td>
+                        <td>Jan, 19, 2013</td>
+                    </tr>
+                    <tr>
+                        <td>11</td>
+                        <td><a href="topic.html">Nam libero tempore, cum soluta</a></td>
+                        <td><a href="">Portal</a></td>
+                        <td>33</td>
+                        <td>Jan, 20, 2013</td>
+                    </tr>
+                    <tr>
+                        <td>11</td>
+                        <td><a href="topic.html">Temporibus autem quibusdam et aut officiis</a></td>
+                        <td><a href="">Android</a></td>
+                        <td>14</td>
+                        <td>Jan, 19, 2013</td>
+                    </tr>
+                    <tr>
+                        <td>11</td>
+                        <td><a href="topic.html">Temporibus autem quibusdam et aut officiis</a></td>
+                        <td><a href="">Android</a></td>
+                        <td>14</td>
+                        <td>Jan, 19, 2013</td>
+                    </tr>
+                    <tr>
+                        <td>11</td>
+                        <td><a href="topic.html">Temporibus autem quibusdam et aut officiis</a></td>
+                        <td><a href="">Android</a></td>
+                        <td>14</td>
+                        <td>Jan, 19, 2013</td>
+                    </tr>
+                    <tr>
+                        <td>11</td>
+                        <td><a href="topic.html">Temporibus autem quibusdam et aut officiis</a></td>
+                        <td><a href="">Android</a></td>
+                        <td>14</td>
+                        <td>Jan, 19, 2013</td>
+                    </tr>
+                    <tr>
+                        <td>11</td>
+                        <td><a href="topic.html">Temporibus autem quibusdam et aut officiis</a></td>
+                        <td><a href="">Android</a></td>
+                        <td>14</td>
+                        <td>Jan, 19, 2013</td>
+                    </tr>
+                    <tr>
+                        <td>11</td>
+                        <td><a href="topic.html">Temporibus autem quibusdam et aut officiis</a></td>
+                        <td><a href="">Android</a></td>
+                        <td>14</td>
+                        <td>Jan, 19, 2013</td>
+                    </tr>
+                    <tr>
+                        <td>11</td>
+                        <td><a href="topic.html">Temporibus autem quibusdam et aut officiis</a></td>
+                        <td><a href="">Android</a></td>
+                        <td>14</td>
+                        <td>Jan, 19, 2013</td>
+                    </tr>
+                    <tr>
+                        <td>11</td>
+                        <td><a href="topic.html">Temporibus autem quibusdam et aut officiis</a></td>
+                        <td><a href="">Android</a></td>
+                        <td>14</td>
+                        <td>Jan, 19, 2013</td>
+                    </tr>
+                    <tr>
+                        <td>11</td>
+                        <td><a href="topic.html">Temporibus autem quibusdam et aut officiis</a></td>
+                        <td><a href="">Android</a></td>
+                        <td>14</td>
+                        <td>Jan, 19, 2013</td>
+                    </tr>
+                    <tr>
+                        <td>11</td>
+                        <td><a href="topic.html">Temporibus autem quibusdam et aut officiis</a></td>
+                        <td><a href="">Android</a></td>
+                        <td>14</td>
+                        <td>Jan, 19, 2013</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="pager">
+                <ul class="pagination pagination-sm">
+                    <li class="disabled"><a>上一页</a></li>
+                    <li class="active"><a href="#">1</a></li>
+                    <li><a href="#">2</a></li>
+                    <li><a href="#">3</a></li>
+                    <li><a href="#">4</a></li>
+                    <li><a href="#">5</a></li>
+                    <li><a href="#">下一页</a></li>
+                </ul>
+            </div>
+        </div>
+        <!--col-md-9-->
+
+        <div class="col-md-3">
+            <h3 class="subtitle2">标签</h3>
+            <br/>
+            <ul class="sidebarlist">
+                <li><i class="iconfa-angle-right"></i> <a href="">动态规划 <span>21</span></a></li>
+                <li><i class="iconfa-angle-right"></i> <a href="">Accusantium <span>5</span></a></li>
+                <li><i class="iconfa-angle-right"></i> <a href="">Laudantium, <span>1</span></a></li>
+                <li><i class="iconfa-angle-right"></i> <a href="">Quibusdam <span>3</span></a></li>
+                <li><i class="iconfa-angle-right"></i> <a href="">Natuserror <span>11</span></a></li>
+                <li><i class="iconfa-angle-right"></i> <a href="">Doloremque <span>20</span></a></li>
+            </ul>
+        </div>
+        <!--col-md-3-->
+    </div><!--row-->
+{% endblock %}
