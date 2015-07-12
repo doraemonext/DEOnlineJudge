@@ -34,6 +34,16 @@ class ProblemSample(models.Model):
         db_table = 'sample'
 
 
+class ProblemCategory(models.Model):
+    problem = models.ForeignKey(Problem, verbose_name='所属题目')
+    title = models.CharField('分类名', max_length=128)
+
+    class Meta:
+        verbose_name = '题目分类表'
+        verbose_name_plural = '题目分类表'
+        db_table = 'category'
+
+
 class ProblemTag(models.Model):
     problem = models.ManyToManyField(Problem, verbose_name='所属题目')
     title = models.CharField('标签名', max_length=128)
