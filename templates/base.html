@@ -1,0 +1,109 @@
+{% load staticfiles %}
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+        <title>{% block title %}{% endblock %}</title>
+
+        <link rel="stylesheet" href="{% static 'css/style.default.css' %}"/>
+        <link rel="stylesheet" href="{% static 'css/style.navyblue.css' %}"/>
+        <link rel="stylesheet" href="{% static 'css/responsive-tables.css' %}">
+        {% block customcss %}{% endblock %}
+
+        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+            <script src="{% static 'js/html5shiv.js' %}"></script>
+            <script src="{% static 'js/respond.min.js' %}"></script>
+        <![endif]-->
+
+        <script src="{% static 'js/jquery-1.10.2.min.js' %}"></script>
+        <script src="{% static 'js/jquery-migrate-1.2.1.min.js' %}"></script>
+        <script src="{% static 'js/jquery-ui-1.10.3.min.js' %}"></script>
+
+        <script src="{% static 'js/bootstrap.min.js' %}"></script>
+
+        <script src="{% static 'js/modernizr.min.js' %}"></script>
+        <script src="{% static 'js/jquery.cookies.js' %}"></script>
+        <script src="{% static 'js/jquery.uniform.min.js' %}"></script>
+        <script src="{% static 'js/flot/jquery.flot.min.js' %}"></script>
+        <script src="{% static 'js/flot/jquery.flot.resize.min.js' %}"></script>
+        <script src="{% static 'js/responsive-tables.js' %}"></script>
+        <script src="{% static 'js/jquery.slimscroll.js' %}"></script>
+
+        <script src="{% static 'js/custom.js' %}"></script>
+
+        <!--[if lte IE 8]>
+            <script src="{% static 'js/excanvas.min.js' %}"></script>
+        <![endif]-->
+    </head>
+
+    <body>
+        <div id="mainwrapper" class="mainwrapper">
+            <div class="header">
+                <div class="logo">
+                    <a href="#"><img src="{% static 'images/logo.png' %}" alt=""/></a>
+                </div>
+                <div class="headerinner">
+                    <ul class="headmenu">
+                        <li>
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                                <span class="head-icon head-message"></span>
+                                <span class="headmenu-label">题目</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                                <span class="head-icon head-bar"></span>
+                                <span class="headmenu-label">记录</span>
+                            </a>
+                        </li>
+                        <li>
+                            <!--<li class="odd">-->
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                                <span class="head-icon head-users"></span>
+                                <span class="headmenu-label">用户</span>
+                            </a>
+                        </li>
+                        <li class="right">
+                            <div class="userloggedinfo">
+                                <img src="{% static 'images/photos/thumb1.png' %}" alt=""/>
+
+                                <div class="userinfo">
+                                    <h5>Ace Kwok
+                                        <small>- doraemonext@gmail.com</small>
+                                    </h5>
+                                    <ul>
+                                        <li><a href="#">我的记录</a></li>
+                                        <li><a href="#">账户设置</a></li>
+                                        <li><a href="#">登出</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                    <!--headmenu-->
+                </div>
+            </div>
+
+            <div class="rightpanel">
+                <div class="maincontent">
+                    <div class="maincontentinner">
+                        {% block content %}{% endblock %}
+
+                        <div class="footer">
+                            <div class="footer-left">
+                                <span>&copy; 2015. DE Online Judge. All Rights Reserved.</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {% block customjs %}{% endblock %}
+    </body>
+</html>
