@@ -1,0 +1,55 @@
+{% load staticfiles %}
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <title>DE Online Judge - 登录</title>
+        <link rel="stylesheet" href="{% static 'css/style.default.css' %}" type="text/css"/>
+        <link rel="stylesheet" href="{% static 'css/style.navyblue.css' %}" type="text/css"/>
+
+        <script type="text/javascript" src="{% static 'js/jquery-1.10.2.min.js' %}"></script>
+        <script type="text/javascript" src="{% static 'js/jquery-migrate-1.2.1.min.js' %}"></script>
+        <script type="text/javascript" src="{% static 'js/jquery-ui-1.10.3.min.js' %}"></script>
+        <script type="text/javascript" src="{% static 'js/modernizr.min.js' %}"></script>
+        <script type="text/javascript" src="{% static 'js/bootstrap.min.js' %}"></script>
+        <script type="text/javascript" src="{% static 'js/jquery.cookies.js' %}"></script>
+        <script type="text/javascript" src="{% static 'js/custom.js' %}"></script>
+
+    </head>
+
+    <body class="loginpage">
+        <div class="regpanel">
+            <div class="regpanelinner">
+                <div class="pageheader">
+                    <div class="pageicon"><span class="iconfa-hand-down"></span></div>
+                    <div class="pagetitle">
+                        <h5>DE Online Judge</h5>
+                        <h1>账户登录</h1>
+                    </div>
+                </div>
+                <div class="regcontent">
+                    <form action="" method="post" class="stdform">
+                        <h3 class="subtitle">用户名</h3>
+                        <p><input type="text" name="username" class="form-control" placeholder=""/></p>
+                        <h3 class="subtitle">密码</h3>
+                        <p><input type="text" name="firstname" class="form-control" placeholder=""/></p>
+                        <br/>
+                        <p>
+                            <button class="btn btn-primary">登录</button>
+                        </p>
+                    </form>
+                </div>
+                <!--regcontent-->
+            </div>
+            <!--regpanelinner-->
+        </div>
+        <!--regpanel-->
+
+        <div class="regfooter">
+            <p>&copy; 2015. DE Online Judge. All Rights Reserved.</p>
+        </div>
+    </body>
+</html>
+
