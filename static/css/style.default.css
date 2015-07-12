@@ -210,7 +210,7 @@ h1,h2,h3,h4,h5 { font-weight: normal; line-height: normal; }
 
 /*** MAIN PANEL ***/
 
-.rightpanel { margin-left: 260px; background: #fff; }
+.rightpanel { margin-left: 0px; background: #fff; }
 .rightpanel:after { clear: both; content: ''; display: block; }
 
 .breadcrumbs {

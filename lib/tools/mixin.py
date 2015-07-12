@@ -8,9 +8,9 @@ from braces.views import AnonymousRequiredMixin as OriginAnonymousRequiredMixin
 
 class LoginRequiredMixin(OriginLoginRequiredMixin):
     def get_login_url(self):
-        return reverse('app:account:login')
+        return reverse('account:login')
 
 
 class AnonymousRequiredMixin(OriginAnonymousRequiredMixin):
     def get_authenticated_redirect_url(self):
-        return reverse('app:index:index')
+        return reverse('index:index')

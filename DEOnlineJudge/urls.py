@@ -7,6 +7,7 @@ from django.conf.urls import include, url
 from django.contrib import admin
 
 urlpatterns = [
+    url(r'^index/', include('app.index.urls', namespace='index')),
     url(r'^account/', include('app.account.urls', namespace='account')),
 
     url(r'^admin/', include(admin.site.urls)),

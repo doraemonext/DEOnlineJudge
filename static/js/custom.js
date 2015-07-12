@@ -55,22 +55,22 @@ jQuery(document).ready(function(){
 			jQuery('.topbar .chatmenu').css({right: '10px'});
 		}
 	});
-	
-	// show/hide left menu
-	jQuery(window).resize(function() {
-		  if(jQuery('.topbar').is(':visible')) {
-				if(jQuery('.barmenu').hasClass('open')) {
-						 jQuery('.rightpanel, .headerinner').css({marginLeft: '260px'});
-						 jQuery('.logo, .leftpanel').css({marginLeft: 0});
-				} else {
-						 jQuery('.rightpanel, .headerinner').css({marginLeft: 0});
-						 jQuery('.logo, .leftpanel').css({marginLeft: '-260px'});
-				}
-		  } else {
-				jQuery('.rightpanel, .headerinner').css({marginLeft: '260px'});
-				jQuery('.logo, .leftpanel').css({marginLeft: 0});
-		  }
-   });
+
+	//// show/hide left menu
+	//jQuery(window).resize(function () {
+	//	if (jQuery('.topbar').is(':visible')) {
+	//		if (jQuery('.barmenu').hasClass('open')) {
+	//			jQuery('.rightpanel, .headerinner').css({marginLeft: '260px'});
+	//			jQuery('.logo, .leftpanel').css({marginLeft: 0});
+	//		} else {
+	//			jQuery('.rightpanel, .headerinner').css({marginLeft: 0});
+	//			jQuery('.logo, .leftpanel').css({marginLeft: '-260px'});
+	//		}
+	//	} else {
+	//		jQuery('.rightpanel, .headerinner').css({marginLeft: '260px'});
+	//		jQuery('.logo, .leftpanel').css({marginLeft: 0});
+	//	}
+	//});
 	
 	// dropdown menu for profile image
 	jQuery('.userloggedinfo img').click(function(){

@@ -40,6 +40,7 @@ INSTALLED_APPS = (
     'system.users',
 
     'app.account',
+    'app.index',
     'app.discussion',
     'app.page',
     'app.problem',
