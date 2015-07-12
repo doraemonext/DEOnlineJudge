@@ -23,6 +23,15 @@ class Problem(models.Model):
         db_table = 'problem'
 
 
+class Category(models.Model):
+    title = models.CharField('分类名', max_length=128)
+
+    class Meta:
+        verbose_name = '分类表'
+        verbose_name_plural = '分类表'
+        db_table = 'category'
+
+
 class ProblemSample(models.Model):
     problem = models.ForeignKey(Problem, verbose_name='所属题目')
     sample_input = models.TextField('样例输入')
@@ -36,19 +45,9 @@ class ProblemSample(models.Model):
 
 class ProblemCategory(models.Model):
     problem = models.ForeignKey(Problem, verbose_name='所属题目')
-    title = models.CharField('分类名', max_length=128)
+    category = models.ForeignKey(Category, verbose_name='所属分类')
 
     class Meta:
         verbose_name = '题目分类表'
         verbose_name_plural = '题目分类表'
-        db_table = 'category'
-
-
-class ProblemTag(models.Model):
-    problem = models.ManyToManyField(Problem, verbose_name='所属题目')
-    title = models.CharField('标签名', max_length=128)
-
-    class Meta:
-        verbose_name = '题目标签表'
-        verbose_name_plural = '题目标签表'
-        db_table = 'tags'
+        db_table = 'problem_category'

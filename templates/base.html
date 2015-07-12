@@ -1,5 +1,7 @@
 {% load staticfiles %}
 
+{% url 'problem:list' as problem_list_url %}
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -45,25 +47,25 @@
         <div id="mainwrapper" class="mainwrapper">
             <div class="header">
                 <div class="logo">
-                    <a href="#"><img src="{% static 'images/logo.png' %}" alt=""/></a>
+                    <a href="{% url 'index:index' %}"><img src="{% static 'images/logo.png' %}" alt=""/></a>
                 </div>
                 <div class="headerinner">
                     <ul class="headmenu">
-                        <li>
-                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                        <li {% if request.path == problem_list_url %}class="odd"{% endif %}>
+                            <a class="dropdown-toggle" href="{% url 'problem:list' %}">
                                 <span class="head-icon head-message"></span>
                                 <span class="headmenu-label">题目</span>
                             </a>
                         </li>
                         <li>
-                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                            <a class="dropdown-toggle" href="#">
                                 <span class="head-icon head-bar"></span>
                                 <span class="headmenu-label">记录</span>
                             </a>
                         </li>
                         <li>
                             <!--<li class="odd">-->
-                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                            <a class="dropdown-toggle" href="#">
                                 <span class="head-icon head-users"></span>
                                 <span class="headmenu-label">用户</span>
                             </a>

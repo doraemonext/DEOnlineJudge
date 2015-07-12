@@ -11,6 +11,18 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
+            name='Category',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('title', models.CharField(max_length=128, verbose_name='\u5206\u7c7b\u540d')),
+            ],
+            options={
+                'db_table': 'category',
+                'verbose_name': '\u5206\u7c7b\u8868',
+                'verbose_name_plural': '\u5206\u7c7b\u8868',
+            },
+        ),
+        migrations.CreateModel(
             name='Problem',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
@@ -29,6 +41,19 @@ class Migration(migrations.Migration):
                 'db_table': 'problem',
                 'verbose_name': '\u9898\u76ee\u8868',
                 'verbose_name_plural': '\u9898\u76ee\u8868',
+            },
+        ),
+        migrations.CreateModel(
+            name='ProblemCategory',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('category', models.ForeignKey(verbose_name='\u6240\u5c5e\u5206\u7c7b', to='problem.Category')),
+                ('problem', models.ForeignKey(verbose_name='\u6240\u5c5e\u9898\u76ee', to='problem.Problem')),
+            ],
+            options={
+                'db_table': 'problem_category',
+                'verbose_name': '\u9898\u76ee\u5206\u7c7b\u8868',
+                'verbose_name_plural': '\u9898\u76ee\u5206\u7c7b\u8868',
             },
         ),
         migrations.CreateModel(
