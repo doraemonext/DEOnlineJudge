@@ -13,6 +13,8 @@ https://docs.djangoproject.com/en/1.8/ref/settings/
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
 
+from kombu import Exchange, Queue
+
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
@@ -40,6 +42,7 @@ INSTALLED_APPS = (
     'rest_framework',
     'tinymce',
     'django_wysiwyg',
+    'djcelery',
 
     'system.users',
 
@@ -137,6 +140,16 @@ REST_FRAMEWORK = {
     'PAGINATE_BY_PARAM': 'per_page',
     'MAX_PAGINATE_BY': 100,
 }
+
+BROKER_URL = 'redis://localhost:6379/0'
+CELERY_RESULT_BACKEND = 'redis://localhost:6379/1'
+CELERY_DEFAULT_QUEUE = 'default'
+CELERY_DEFAULT_ROUTING_KEY = 'default'
+CELERY_TASK_RESULT_EXPIRES = 3600
+CELERY_QUEUES = (
+    Queue('default', routing_key='default'),
+)
+CELERYBEAT_SCHEDULER = 'djcelery.schedulers.DatabaseScheduler'
 
 DJANGO_WYSIWYG_FLAVOR = "tinymce"
 
