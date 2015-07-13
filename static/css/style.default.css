@@ -232,7 +232,7 @@ h1,h2,h3,h4,h5 { font-weight: normal; line-height: normal; }
 	background: url(../images/bcarrow.png) no-repeat 0 0; margin-left: 2px; }
 .breadcrumbs > li:first-child a:hover { text-decoration: none; color: #666; }
 
-.pageheader { padding: 20px; border-bottom: 1px solid #ddd; position: relative; min-height: 105px; background: #fff; }
+.pageheader { padding-left: 20px; padding-right: 20px; padding-bottom: 0; border-bottom: 1px solid #ddd; position: relative; min-height: 95px; background: #fff; }
 .pageicon {
 	width: 70px; font-size: 42px; padding: 10px; color: #0866c6; border: 3px solid #0866c6; display: inline-block;
 	-moz-border-radius: 50px; -webkit-border-radius: 50px; border-radius: 50px; float: left; text-align: center;
@@ -241,10 +241,10 @@ h1,h2,h3,h4,h5 { font-weight: normal; line-height: normal; }
 .pagetitle h1 { font-size: 32px; margin-left: -2px; color: #0866c6; }
 .pagetitle h5 { text-transform: uppercase; font-size: 11px; color: #999; }
 
-.searchbar { position: absolute; top: 33%; right: 20px; }
+.searchbar { position: absolute; top: 25%; right: 20px; }
 .searchbar input {
-	width: 240px; padding: 10px; background: #fff url(../images/icons/search.png) no-repeat 95% 10px;
-	font-size: 12px; border: 1px solid #ddd; height: auto;
+	width: 180px; padding: 3px 3px 4px;
+	font-size: 12px; height: auto;
 }
 
 .maincontent { float: left; width: 100%; }

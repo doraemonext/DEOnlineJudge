@@ -6,7 +6,20 @@
 {% block content %}
     <div class="row">
         <div class="col-md-12">
-            <h3 class="subtitle2">提交记录</h3>
+            <div class="pageheader no-border">
+                <form action="" method="get" class="searchbar">
+                    <input type="text" name="record" value="{{ search_record }}" placeholder="提交记录ID">
+                    <input type="text" name="problem" value="{{ search_problem }}" placeholder="题目名称或题目ID">
+                    <input type="text" name="user" value="{{ search_user }}" placeholder="提交者">
+                    <input type="text" name="language" value="{{ search_language }}" placeholder="语言">
+                    <button class="btn btn-default">筛选</button>
+                </form>
+                <div class="pageicon"><span class="iconfa-laptop"></span></div>
+                <div class="pagetitle">
+                    <h5>DE Online Judge</h5>
+                    <h1>提交记录</h1>
+                </div>
+            </div>
             <br/>
             <table class="table discussions">
                 <colgroup>
@@ -23,7 +36,7 @@
                 </colgroup>
                 <thead>
                     <tr>
-                        <th>ID</th>
+                        <th>记录ID</th>
                         <th>题目</th>
                         <th>状态</th>
                         <th>得分</th>
