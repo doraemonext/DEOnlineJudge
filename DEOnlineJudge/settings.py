@@ -43,8 +43,6 @@ INSTALLED_APPS = (
 
     'app.account',
     'app.index',
-    'app.discussion',
-    'app.page',
     'app.problem',
     'app.record',
     'app.node',

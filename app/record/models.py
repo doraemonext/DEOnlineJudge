@@ -13,6 +13,7 @@ class Record(models.Model):
     problem = models.ForeignKey(Problem, verbose_name='所属题目')
     user = models.ForeignKey(User, verbose_name='所属用户')
     node = models.ForeignKey(Node, verbose_name='所属评测节点')
+    source_code = models.TextField('代码')
     status = models.CharField('当前状态', max_length=6)
     score = models.IntegerField('分数')
     time_used = models.IntegerField('所用时间')

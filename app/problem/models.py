@@ -4,6 +4,8 @@ from __future__ import absolute_import, unicode_literals
 
 from django.db import models
 
+from system.users.models import User
+
 
 class Problem(models.Model):
     title = models.CharField('标题', max_length=50)
@@ -59,3 +61,17 @@ class ProblemCategory(models.Model):
         verbose_name = '题目分类表'
         verbose_name_plural = '题目分类表'
         db_table = 'problem_category'
+
+
+class ProblemDiscussion(models.Model):
+    problem = models.ForeignKey(Problem, verbose_name='所属题目')
+    user = models.ForeignKey(User, verbose_name='所属用户')
+    parent = models.ForeignKey('self', verbose_name='父亲评论')
+    content = models.TextField('讨论内容')
+    create_datetime = models.DateTimeField('创建时间', auto_now_add=True)
+    update_datetime = models.DateTimeField('更新时间', auto_now=True)
+
+    class Meta:
+        verbose_name = '题目讨论表'
+        verbose_name_plural = '题目讨论表'
+        db_table = 'problem_discussion'
