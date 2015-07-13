@@ -10,6 +10,9 @@ class Node(models.Model):
     host = models.CharField('节点地址', max_length=64)
     port = models.IntegerField('节点端口')
 
+    def __unicode__(self):
+        return self.name
+
     class Meta:
         verbose_name = '评测节点表'
         verbose_name_plural = '评测节点表'
