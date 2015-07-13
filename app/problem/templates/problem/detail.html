@@ -9,32 +9,61 @@
             <h2 class="topictitle">{{ title }}</h2>
             <div class="topicpanel">
                 <div class="topic-content">
-                    <h5><a href=""><strong>juandelacruz</strong></a></h5>
+                    {% if description %}
+                        <h5><a href=""><strong>题目描述</strong></a></h5>
+                        {{ description|safe }}
+                    {% endif %}
 
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut
-                        labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
-                        laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
-                        voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+                    {% if input_format %}
+                        <h5><a href=""><strong>输入格式</strong></a></h5>
+                        {{ input_format|safe }}
+                    {% endif %}
 
-                    <p>Excepteur sint occaecat cupidatat non proident, <a href="">sunt in culpa qui</a> officia deserunt
-                        mollit anim id est laborum.</p>
+                    {% if output_format %}
+                        <h5><a href=""><strong>输出格式</strong></a></h5>
+                        {{ output_format|safe }}
+                    {% endif %}
 
-                    <p class="date">1 week 2 hours ago</p>
+                    {% if limit %}
+                        <h5><a href=""><strong>限制条件</strong></a></h5>
+                        {{ limit|safe }}
+                    {% endif %}
+
+                    {% if tips %}
+                        <h5><a href=""><strong>提示</strong></a></h5>
+                        {{ tips|safe }}
+                    {% endif %}
+
+                    {% if source %}
+                        <h5><a href=""><strong>来源</strong></a></h5>
+                        <p>{{ source|safe }}</p>
+                    {% endif %}
+                    <p class="date"></p>
                 </div>
             </div>
         </div>
         <!--col-md-9-->
 
         <div class="col-md-3">
-            <h3 class="subtitle2">Categories</h3>
-            <br/>
-            <ul class="sidebarlist">
-                <li><i class="iconfa-angle-right"></i> <a href="">Perspiciatis Unde <span>21</span></a></li>
-                <li><i class="iconfa-angle-right"></i> <a href="">Accusantium <span>5</span></a></li>
-                <li><i class="iconfa-angle-right"></i> <a href="">Laudantium, <span>1</span></a></li>
-                <li><i class="iconfa-angle-right"></i> <a href="">Quibusdam <span>3</span></a></li>
-                <li><i class="iconfa-angle-right"></i> <a href="">Natuserror <span>11</span></a></li>
-                <li><i class="iconfa-angle-right"></i> <a href="">Doloremque <span>20</span></a></li>
+            <div class="alert alert-info">
+                <h4>题目运行环境</h4>
+
+                <div class="divider15"></div>
+                <p>
+                    <strong>内存：</strong>{{ memory_limit }} MB <br/>
+                    <strong>时间：</strong>{{ time_limit }} ms (每个测试点)<br/>
+                    {% ifequal 'CP' judge_type %}
+                        <strong>判题方式：</strong>普通
+                    {% else %}
+                        <strong>判题方式：</strong>Special Judge
+                    {% endifequal %}
+                </p>
+            </div>
+
+            <ul class="nav nav-tabs nav-stacked samplenavs">
+                <li><a href="#"><i class="iconfa-arrow-right"></i> &nbsp; 提交代码</a></li>
+                <li><a href="#"><i class="iconfa-comment"></i> &nbsp; 查看讨论</a></li>
+                <li><a href="#"><i class="iconfa-bar-chart"></i> &nbsp; 查看本题提交记录</a></li>
             </ul>
         </div>
         <!--col-md-3-->
