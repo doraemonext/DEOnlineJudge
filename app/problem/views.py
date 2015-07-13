@@ -52,3 +52,28 @@ class ProblemDetailView(TemplateView):
         context['time_limit'] = problem.time_limit
         context['memory_limit'] = problem.memory_limit
         return context
+
+
+class ProblemSubmitView(TemplateView):
+    template_name = 'problem/submit.html'
+
+    def get_context_data(self, **kwargs):
+        problem_id = self.kwargs.get('id')
+        queryset = Problem.objects.filter(pk=problem_id)
+        if not queryset.exists():
+            raise Http404()
+        problem = queryset[0]
+
+        context = super(ProblemSubmitView, self).get_context_data(**kwargs)
+        context['program_id'] = problem.pk
+        context['title'] = problem.title
+        context['description'] = problem.description
+        context['input_format'] = problem.input_format
+        context['output_format'] = problem.output_format
+        context['limit'] = problem.limit
+        context['tips'] = problem.tips
+        context['source'] = problem.source
+        context['judge_type'] = problem.judge_type
+        context['time_limit'] = problem.time_limit
+        context['memory_limit'] = problem.memory_limit
+        return context

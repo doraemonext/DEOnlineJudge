@@ -1140,6 +1140,7 @@ ul.list-inline li { display: inline-block; margin: 0 5px 10px 0; }
 .replypanel { margin: 20px 0; }
 .replypanel .author-thumb { float: left; margin-top: 5px; overflow: hidden; width: 55px; }
 .replypanel .author-thumb img { width: 100%; }
+.replypanel .submit-content { margin-left: 0px; }
 .replypanel .topic-content { margin-left: 70px; }
 .replypanel h5 { font-size: 14px; }
 .replypanel p { margin: 10px 0; }
@@ -1779,7 +1780,7 @@ div.btradio input {
 }
 
 .form-group .control-label {
-	margin-top: 5px;
+
 }
 
 label.error {
