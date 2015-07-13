@@ -23,11 +23,11 @@ class ProblemSubmitAPI(APIView):
     def post(self, request, format=None):
         serializer = ProblemSubmitSerializer(data=request.data)
         if serializer.is_valid():
-            program_id = serializer.data.get('program')
+            problem_id = serializer.data.get('problem')
             language = serializer.data.get('language')
             source_code = serializer.data.get('source_code')
             try:
-                problem = Problem.objects.get(pk=program_id)
+                problem = Problem.objects.get(pk=problem_id)
             except Problem.DoesNotExist:
                 response = {
                     'problem_id': '不存在的题目ID'

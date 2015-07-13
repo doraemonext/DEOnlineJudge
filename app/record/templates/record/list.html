@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load staticfiles %}
+{% load tz %}
 
 {% block title %}DE Online Judge - 提交记录{% endblock %}
 
@@ -59,7 +60,7 @@
                         <th>{{ record.memory_used }}</th>
                         <th>{{ record.user.nickname }}</th>
                         <th>{{ record.language }}</th>
-                        <th>{{ record.create_datetime }}</th>
+                        <th>{{ record.create_datetime|localtime }}</th>
                         <th><a href="{% url 'record:detail' id=record.id %}">查看详细</a></th>
                     </tr>
                     {% endfor %}

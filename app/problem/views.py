@@ -41,6 +41,7 @@ class ProblemDetailView(TemplateView):
         problem = queryset[0]
 
         context = super(ProblemDetailView, self).get_context_data(**kwargs)
+        context['problem_id'] = problem.pk
         context['title'] = problem.title
         context['description'] = problem.description
         context['input_format'] = problem.input_format
@@ -65,7 +66,7 @@ class ProblemSubmitView(TemplateView):
         problem = queryset[0]
 
         context = super(ProblemSubmitView, self).get_context_data(**kwargs)
-        context['program_id'] = problem.pk
+        context['problem_id'] = problem.pk
         context['title'] = problem.title
         context['description'] = problem.description
         context['input_format'] = problem.input_format
