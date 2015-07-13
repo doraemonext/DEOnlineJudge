@@ -19,13 +19,13 @@ class ProblemSampleInline(admin.TabularInline):
 
 @admin.register(Problem)
 class ProblemAdmin(admin.ModelAdmin):
+    change_form_template = 'problem/admin/change_form.html'
     list_display = ('title', 'source', 'judge_type', 'time_limit', 'memory_limit', 'data_input_extension',
                     'data_output_extension', 'create_datetime')
     list_filter = ('title', 'source', 'judge_type', 'time_limit', 'memory_limit', 'data_input_extension',
                    'data_output_extension', 'create_datetime')
     search_fields = ['title', 'source']
     inlines = [ProblemCategoryInline, ProblemSampleInline]
-    change_form_template = 'problem/admin/change_form.html'
 
 
 @admin.register(Category)
