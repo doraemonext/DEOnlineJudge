@@ -13,6 +13,7 @@ urlpatterns = [
     url(r'^index/', include('app.index.urls', namespace='index')),
     url(r'^account/', include('app.account.urls', namespace='account')),
     url(r'^problem/', include('app.problem.urls', namespace='problem')),
+    url(r'^record/', include('app.record.urls', namespace='record')),
 
     url(r'^admin/', include(admin.site.urls)),
     url(r'^tinymce/', include('tinymce.urls')),

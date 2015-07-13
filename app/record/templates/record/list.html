@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block title %}DE Online Judge - 提交记录{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-12">
+            <h3 class="subtitle2">提交记录</h3>
+            <br/>
+            <table class="table discussions">
+                <colgroup>
+                    <col class="width5"/>
+                    <col class="width30"/>
+                    <col class="width5"/>
+                    <col class="width5"/>
+                    <col class="width5"/>
+                    <col class="width5"/>
+                    <col class="width10"/>
+                    <col class="width10"/>
+                    <col class="width15"/>
+                    <col class="width10"/>
+                </colgroup>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>题目</th>
+                        <th>状态</th>
+                        <th>得分</th>
+                        <th>时间(ms)</th>
+                        <th>内存(MB)</th>
+                        <th>提交者</th>
+                        <th>语言</th>
+                        <th>提交时间</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for record in records %}
+                    <tr>
+                        <td>{{ record.id }}</td>
+                        <td><a href="{% url 'problem:detail' id=record.problem.id %}">{{ record.problem.title }}</a></td>
+                        <th>{{ record.status }}</th>
+                        <th>{{ record.score }}</th>
+                        <th>{{ record.time_used }}</th>
+                        <th>{{ record.memory_used }}</th>
+                        <th>{{ record.user.nickname }}</th>
+                        <th>{{ record.language }}</th>
+                        <th>{{ record.create_datetime }}</th>
+                        <th><a href="{% url 'record:detail' id=record.id %}">查看详细</a></th>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+            <div class="pager">
+                <ul class="pagination pagination-sm">
+                    {% if records.has_previous %}
+                        <li><a href="?page={{ contacts.previous_page_number }}">上一页</a></li>
+                    {% endif %}
+                    <li class="active"><a>{{ records.number }}</a></li>
+                    {% if records.has_next %}
+                        <li><a href="?page={{ records.next_page_number }}">下一页</a></li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </div><!--row-->
+{% endblock %}
