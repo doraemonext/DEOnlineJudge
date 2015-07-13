@@ -2,9 +2,7 @@
 
 from __future__ import unicode_literals, absolute_import
 
-from django.contrib.auth import authenticate, login, logout, get_user_model
 from django.core.urlresolvers import reverse
-from django.db import IntegrityError
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import permissions
