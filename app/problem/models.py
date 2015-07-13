@@ -14,8 +14,13 @@ class Problem(models.Model):
     source = models.CharField('题目来源', max_length=256)
     judge_type = models.SmallIntegerField('判题类型')
     tips = models.CharField('提示', max_length=256)
+    data_input_extension = models.CharField('数据输入文件扩展名', max_length=32)
+    data_output_extension = models.CharField('数据输出文件扩展名', max_length=32)
     create_datetime = models.DateTimeField('创建时间', auto_now_add=True)
     update_datetime = models.DateTimeField('更新时间', auto_now=True)
+
+    def __unicode__(self):
+        return self.title
 
     class Meta:
         verbose_name = '题目表'
@@ -25,6 +30,9 @@ class Problem(models.Model):
 
 class Category(models.Model):
     title = models.CharField('分类名', max_length=128)
+
+    def __unicode__(self):
+        return self.title
 
     class Meta:
         verbose_name = '分类表'

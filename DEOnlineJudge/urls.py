@@ -6,6 +6,8 @@ The `urlpatterns` list routes URLs to views. For more information please see:
 from django.conf.urls import include, url
 from django.contrib import admin
 
+admin.autodiscover()
+
 urlpatterns = [
     url(r'^api/', include('api.urls', namespace='api')),
     url(r'^index/', include('app.index.urls', namespace='index')),
