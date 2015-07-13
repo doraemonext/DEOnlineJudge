@@ -25,6 +25,7 @@ class ProblemAdmin(admin.ModelAdmin):
                    'data_output_extension', 'create_datetime')
     search_fields = ['title', 'source']
     inlines = [ProblemCategoryInline, ProblemSampleInline]
+    change_form_template = 'problem/admin/change_form.html'
 
 
 @admin.register(Category)
