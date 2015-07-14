@@ -45,6 +45,10 @@ class ProblemListView(TemplateView):
         context = super(ProblemListView, self).get_context_data(**kwargs)
         context['problems'] = problems
         context['categories'] = categories
+        context['search_problem_id'] = search_problem_id
+        context['search_problem_title'] = search_problem_title
+        context['search_category'] = search_category
+        context['search_source'] = search_source
         return context
 
 
