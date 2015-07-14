@@ -63,9 +63,8 @@
                                 <span class="headmenu-label">记录</span>
                             </a>
                         </li>
-                        <li>
-                            <!--<li class="odd">-->
-                            <a class="dropdown-toggle" href="#">
+                        <li {% if 'users' in request.path %}class="odd"{% endif %}>
+                            <a class="dropdown-toggle" href="{% url 'account:users' %}">
                                 <span class="head-icon head-users"></span>
                                 <span class="headmenu-label">用户</span>
                             </a>

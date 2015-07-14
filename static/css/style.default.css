@@ -1299,7 +1299,7 @@ ul.list-inline li { display: inline-block; margin: 0 5px 10px 0; }
 .peoplelist .peoplewrapper { border: 1px solid #ccc; padding: 15px; background: #fff; height: 145px; margin-bottom: 20px; }
 .peoplelist .thumb { float: left; }
 .peoplelist .thumb img { display: block; width: 80px; }
-.peoplelist .peopleinfo { margin-left: 95px; }
+.peoplelist .peopleinfo { margin-left: 0; }
 .peoplelist .peopleinfo h4 { font-size: 15px; }
 .peoplelist .peopleinfo h4 span {
 	font-family: sans-serif; font-size: 10px; text-transform: uppercase; margin-left: 5px; }

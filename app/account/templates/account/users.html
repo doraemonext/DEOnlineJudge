@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% load tz %}
+
+{% block title %}用户列表 - DE Online Judge{% endblock %}
+
+{% block content %}
+    <div class="peoplelist">
+        <div class="row">
+            {% for user in users %}
+            <div class="col-md-3">
+                <div class="peoplewrapper">
+                    <div class="peopleinfo">
+                        <h4><a href="">{{ user.nickname }}</a> <span class="on"> {{ user.username }}</span></h4>
+                        <ul>
+                            <li><span>电子邮件：</span> {{ user.email }}</li>
+                            <li><span>正确率：</span> {{ user.percent }} %</li>
+                            <li><span>总提交数：</span> {{ user.total_sum }}</li>
+                            <li><span>AC数：</span> {{ user.ac_sum }}</li>
+                            <li><span>注册日期：</span> {{ user.date_joined|localtime }}</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div><!--row-->
+    </div>
+{% endblock %}

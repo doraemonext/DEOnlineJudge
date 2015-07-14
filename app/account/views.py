@@ -6,6 +6,8 @@ from django.core.urlresolvers import reverse
 from django.http.response import HttpResponseRedirect
 from django.views.generic import TemplateView
 
+from system.users.models import User
+from app.record.models import Record
 from lib.tools.mixin import AnonymousRequiredMixin
 
 
@@ -49,3 +51,23 @@ class RegistrationView(AnonymousRequiredMixin, TemplateView):
         if request.user.is_authenticated():
             return HttpResponseRedirect(self.get_redirect_url(context['next']))
         return self.render_to_response(context)
+
+
+class UsersView(TemplateView):
+    template_name = 'account/users.html'
+
+    def get_context_data(self, **kwargs):
+        users = User.objects.all().order_by('-id')
+        for user in users:
+            record = Record.objects.filter(user=user)
+            user.total_sum = record.count()
+            record = record.filter(status='AC')
+            user.ac_sum = record.count()
+            if user.total_sum > 0:
+                user.percent = int(float(user.ac_sum) / user.total_sum * 100)
+            else:
+                user.percent = 0
+
+        context = super(UsersView, self).get_context_data(**kwargs)
+        context['users'] = users
+        return context
