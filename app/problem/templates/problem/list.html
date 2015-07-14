@@ -26,15 +26,17 @@
             <table class="table discussions">
                 <colgroup>
                     <col class="width5"/>
-                    <col class="width60"/>
+                    <col class="width35"/>
+                    <col class="width20"/>
                     <col class="width10"/>
                     <col class="width10"/>
-                    <col class="width15"/>
+                    <col class="width20"/>
                 </colgroup>
                 <thead>
                     <tr>
                         <th>ID</th>
                         <th>名称</th>
+                        <th>分类</th>
                         <th>AC 人数</th>
                         <th>提交人数</th>
                         <th>来源</th>
@@ -45,6 +47,7 @@
                     <tr>
                         <td>{{ problem.id }}</td>
                         <td><a href="{% url 'problem:detail' id=problem.id %}">{{ problem.title }}</a></td>
+                        <td>{{ problem.category.title }}</td>
                         <td>0</td>
                         <td>0</td>
                         <td>{{ problem.source }}</td>
@@ -71,6 +74,7 @@
             <h3 class="subtitle2">分类</h3>
             <br/>
             <ul class="sidebarlist">
+                <li><i class="iconfa-angle-right"></i> <a href="?category=">全部</a></li>
                 {% for category in categories %}
                     <li><i class="iconfa-angle-right"></i> <a href="?category={{ category.title }}">{{ category.title }} <span>{{ category.problem_set.count }}</span></a></li>
                 {% endfor %}

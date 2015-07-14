@@ -31,7 +31,7 @@ class ProblemListView(TemplateView):
         if search_source:
             problem_list = problem_list.filter(source=search_source)
 
-        paginator = Paginator(problem_list, 20)
+        paginator = Paginator(problem_list, 15)
         page = self.request.GET.get('page')
         try:
             problems = paginator.page(page)
