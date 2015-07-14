@@ -72,7 +72,7 @@
             <br/>
             <ul class="sidebarlist">
                 {% for category in categories %}
-                    <li><i class="iconfa-angle-right"></i> <a href="?category={{ category.title }}">{{ category.title }} <span>0</span></a></li>
+                    <li><i class="iconfa-angle-right"></i> <a href="?category={{ category.title }}">{{ category.title }} <span>{{ category.problem_set.count }}</span></a></li>
                 {% endfor %}
             </ul>
         </div>
