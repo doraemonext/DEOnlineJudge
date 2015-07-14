@@ -6,6 +6,7 @@ from django.views.generic import TemplateView
 from django.http import Http404
 
 from app.problem.models import Problem, Category
+from lib.tools.mixin import LoginRequiredMixin
 
 
 class ProblemListView(TemplateView):
@@ -55,7 +56,7 @@ class ProblemDetailView(TemplateView):
         return context
 
 
-class ProblemSubmitView(TemplateView):
+class ProblemSubmitView(LoginRequiredMixin, TemplateView):
     template_name = 'problem/submit.html'
 
     def get_context_data(self, **kwargs):

@@ -70,14 +70,14 @@
             <div class="pager">
                 <ul class="pagination pagination-sm">
                     {% if records.has_previous %}
-                        <li><a href="?page={{ contacts.previous_page_number }}">上一页</a></li>
+                        <li><a href="?page={{ records.previous_page_number }}{% for key,value in request.GET.items %}{% if key != 'page' %}&{{ key }}={{ value }}{% endif %}{% endfor %}">上一页</a></li>
                     {% endif %}
-                    <li class="active"><a>{{ records.number }}</a></li>
+                    <li class="active"><a href="##">{{ records.number }}</a></li>
                     {% if records.has_next %}
-                        <li><a href="?page={{ records.next_page_number }}">下一页</a></li>
+                        <li><a href="?page={{ records.next_page_number }}{% for key,value in request.GET.items %}{% if key != 'page' %}&{{ key }}={{ value }}{% endif %}{% endfor %}">下一页</a></li>
                     {% endif %}
                 </ul>
-            </div>
+            </div>        
         </div>
     </div><!--row-->
 {% endblock %}

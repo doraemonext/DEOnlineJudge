@@ -9,8 +9,8 @@ from django.contrib import admin
 admin.autodiscover()
 
 urlpatterns = [
+    url(r'^$', include('app.index.urls', namespace='index')),
     url(r'^api/', include('api.urls', namespace='api')),
-    url(r'^index/', include('app.index.urls', namespace='index')),
     url(r'^account/', include('app.account.urls', namespace='account')),
     url(r'^problem/', include('app.problem.urls', namespace='problem')),
     url(r'^record/', include('app.record.urls', namespace='record')),
