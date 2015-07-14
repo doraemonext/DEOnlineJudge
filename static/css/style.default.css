@@ -41,7 +41,6 @@ table, caption, tbody, tfoot, thead, tr, th, td {
 	line-height: 21px;
 	outline: none;
 }
-
 ::selection { background: #ccc; color: #fff; text-shadow: none; } /* Safari */
 ::-moz-selection { background: #ccc; color: #fff; text-shadow: none; } /* Firefox */
 :-moz-placeholder { color: #bbb; }
@@ -52,7 +51,7 @@ a, a:link { color: blue; }
 h4 { font-size: 16px; }
 
 body {
-	background: url(../images/leftpanelbg.png) repeat-y 0 0; font-size: 12px;
+	font-size: 12px;
 	font-family: 'Helvetica Neue', Helvetica, sans-serif; }
 body.errorpage { background: #fff url(../images/bg1.png);  }
 body.loginpage { background: #0866c6; }
@@ -201,18 +200,18 @@ h1,h2,h3,h4,h5 { font-weight: normal; line-height: normal; }
 
 .leftmenu .nav-tabs.nav-stacked .dropdown ul li a  {
 	display: block; font-size: 13px; padding: 7px 10px 7px 50px; color: #333; background-position: 25px 12px;
-	background-image: url(../images/menuarrow.png); background-repeat: no-repeat;  
+	background-image: url(../images/menuarrow.png); background-repeat: no-repeat;
 }
 .leftmenu .nav-tabs.nav-stacked .dropdown ul li.active a { background-color: #fff; }
 .leftmenu .nav-tabs.nav-stacked .dropdown ul li a:hover { text-decoration: none; background-color: #fff; }
 .leftmenu .nav-tabs.nav-stacked .dropdown ul ul li { border-right: 0; }
 .leftmenu .nav-tabs.nav-stacked .dropdown ul ul li a { padding-left: 70px; background-position: 50px 12px; }
-.leftmenu .nav-tabs.nav-stacked .dropdown ul ul li:first-child a { border-top: 1px solid #ddd; } 
+.leftmenu .nav-tabs.nav-stacked .dropdown ul ul li:first-child a { border-top: 1px solid #ddd; }
 
 
 /*** MAIN PANEL ***/
 
-.rightpanel { margin-left: 0px; background: #fff; }
+.rightpanel { margin-left: 0; background: #fff; }
 .rightpanel:after { clear: both; content: ''; display: block; }
 
 .breadcrumbs {
@@ -970,7 +969,6 @@ ul.list-inline li { display: inline-block; margin: 0 5px 10px 0; }
 .wizard .hormenu li span.label {
 	display: block; color: #999; background: none; text-shadow: none; padding: 0;
 	font-size: 11px; text-align: left; text-transform: uppercase; font-weight: normal; }
-.wizard .hormenu li a span.dot span { width: 20px; height: 20px; display: inline-block; background: url(../img/steps.png) no-repeat 0 -40px; }
 .wizard .hormenu li:first-child a span.dot { margin-left: 47%; text-align: left; }
 .wizard .hormenu li:last-child a span.dot { margin-right: 47%; text-align: right; }
 .wizard .hormenu li a.done { background: #0866c6; border-right: 1px solid rgba(255,255,255,0.2); }
@@ -1268,7 +1266,6 @@ ul.list-inline li { display: inline-block; margin: 0 5px 10px 0; }
 	-moz-border-radius: 50px; -webkit-border-radius: 50px; border-radius: 50px;
 }
 .chatusers li a { padding: 8px 5px; display: block; color: #666; }
-.chatusers li.online a { background: url(../images/online.png) no-repeat right 16px; }
 .chatusers li.new a { font-weight: bold; }
 .chatusers li a:hover { background-color: #eee; text-decoration: none; }
 .chatusers li a img { vertical-align: middle; display: inline-block; margin-right: 10px; }
