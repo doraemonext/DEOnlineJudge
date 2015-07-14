@@ -1,4 +1,5 @@
 {% load staticfiles %}
+{% load gravatar %}
 
 <!DOCTYPE html>
 <html>
@@ -73,7 +74,7 @@
                         <li class="right">
                             <div class="userloggedinfo">
                                 {% if user.is_authenticated %}
-                                    <img src="{% static 'images/photos/Doraemonext.png' %}" alt=""/>
+                                    <img src="{% gravatar_url user.email 100 %}" alt=""/>
 
                                     <div class="userinfo">
                                         <h5>{{ user.nickname }}

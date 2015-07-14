@@ -43,6 +43,7 @@ INSTALLED_APPS = (
     'tinymce',
     'django_wysiwyg',
     'djcelery',
+    'django_gravatar',
 
     'system.users',
 
