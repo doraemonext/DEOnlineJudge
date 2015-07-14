@@ -14,10 +14,12 @@ class Record(models.Model):
     user = models.ForeignKey(User, verbose_name='所属用户')
     node = models.ForeignKey(Node, verbose_name='所属评测节点')
     source_code = models.TextField('代码')
-    status = models.CharField('当前状态', max_length=6, default='WAIT')
+    status = models.CharField('当前状态', max_length=10, default='WAIT')
+    total_point = models.IntegerField('测试点数', default=0)
     score = models.IntegerField('分数', default=0)
     time_used = models.IntegerField('所用时间', default=0)
     memory_used = models.IntegerField('所用内存', default=0)
+    message = models.TextField('运行信息', default='')
     language = models.CharField('所用语言', max_length=20)
     create_datetime = models.DateTimeField('创建时间', auto_now_add=True)
 
@@ -29,10 +31,11 @@ class Record(models.Model):
 
 class RecordDetail(models.Model):
     record = models.ForeignKey(Record, verbose_name='所属记录')
-    status = models.CharField('当前状态', max_length=6)
+    status = models.CharField('当前状态', max_length=10)
     score = models.IntegerField('分数')
     time_used = models.IntegerField('所用时间')
     memory_used = models.IntegerField('所用内存')
+    message = models.TextField('运行信息', default='')
 
     class Meta:
         verbose_name = '评测记录详细表'

@@ -12,6 +12,7 @@ from api.problem.serializer import ProblemSubmitSerializer
 from app.record.models import Record
 from app.node.models import Node
 from app.problem.models import Problem
+from app.node.tasks import execute_program
 
 
 class ProblemSubmitAPI(APIView):
@@ -33,13 +34,14 @@ class ProblemSubmitAPI(APIView):
                 return Response(response, status=status.HTTP_400_BAD_REQUEST)
             node = Node.objects.all()[0]
 
-            Record.objects.create(
+            record = Record.objects.create(
                 problem=problem,
                 user=request.user,
                 node=node,
                 source_code=source_code,
                 language=language,
             )
+            execute_program.apply_async(kwargs={'record_id': record.pk})
 
             return Response({
                 'redirect_url': reverse('record:list'),
