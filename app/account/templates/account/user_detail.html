@@ -2,6 +2,8 @@
 {% load staticfiles %}
 {% load tz %}
 
+{% block title %}{{ current_user.nickname }} - DE Online Judge{% endblock %}
+
 {% block customcss %}
     <style>
         .profile {
@@ -145,123 +147,31 @@
         </div>
         <div class="col-md-9">
             <div class="profile-content">
-                <h5>用户全部AC记录</h5>
-                <br/>
-                <table class="table table-striped table-condensed table-bordered fiexd">
+                <h4 class="widgettitle">用户全部提交记录</h4>
+                <table class="table responsive">
+                    <thead>
+                        <tr>
+                            <th>记录ID</th>
+                            <th>题目标题</th>
+                            <th>状态</th>
+                            <th>分数</th>
+                            <th>语言</th>
+                            <th>时间</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
                     <tbody>
+                        {% for record in records %}
                         <tr>
-                            <td>
-                                <a href="../submit/code.php?id=26392" target="_blank">
-                                    +<i class="icon-ok"></i>
-                                </a>
-                                <a href="../problem/problem.php?pid=1" target="_blank">
-                                    加法问题</a>
-                            </td>
-                            <td>
-                                <a href="../submit/code.php?id=149462" target="_blank">
-                                    +<i class="icon-ok"></i>
-                                </a>
-                                <a href="../problem/problem.php?pid=2" target="_blank">
-                                    旅行计划</a>
-                            </td>
-                            <td>
-                                <a href="../submit/code.php?id=26535" target="_blank">
-                                    +<i class="icon-ok"></i>
-                                </a>
-                                <a href="../problem/problem.php?pid=3" target="_blank">
-                                    服务点设置</a>
-                            </td>
-                            <td>
-                                <a href="../submit/code.php?id=42442" target="_blank">
-                                    +<i class="icon-ok"></i>
-                                </a>
-                                <a href="../problem/problem.php?pid=4" target="_blank">
-                                    双服务点设置</a>
-                            </td>
+                            <td><a href="{% url 'record:detail' id=record.id %}">{{ record.id }}</a></td>
+                            <td><a href="{% url 'problem:detail' id=record.problem.id %}">{{ record.problem.title }}</a></td>
+                            <td>{{ record.status }}</td>
+                            <td>{{ record.score }}</td>
+                            <td>{{ record.language }}</td>
+                            <td>{{ record.create_datetime|localtime }}</td>
+                            <td class="center"><a href="{% url 'record:detail' id=record.id %}">查看详情</a></td>
                         </tr>
-                        <tr>
-                            <td>
-                                <a href="../submit/code.php?id=50372" target="_blank">
-                                    +<i class="icon-ok"></i>
-                                </a>
-                                <a href="../problem/problem.php?pid=5" target="_blank">
-                                    P服务点设置</a>
-                            </td>
-                            <td>
-                                <a href="../submit/code.php?id=52709" target="_blank">
-                                    +<i class="icon-ok"></i>
-                                </a>
-                                <a href="../problem/problem.php?pid=6" target="_blank">
-                                    线型网络</a>
-                            </td>
-                            <td>
-                                <a href="../submit/code.php?id=52370" target="_blank">
-                                    +<i class="icon-ok"></i>
-                                </a>
-                                <a href="../problem/problem.php?pid=7" target="_blank">
-                                    通信线路</a>
-                            </td>
-                            <td>
-                                <a href="../submit/code.php?id=119872" target="_blank">
-                                    +<i class="icon-ok"></i>
-                                </a>
-                                <a href="../problem/problem.php?pid=8" target="_blank">
-                                    备用交换机</a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <a href="../submit/code.php?id=91904" target="_blank">
-                                    +<i class="icon-ok"></i>
-                                </a>
-                                <a href="../problem/problem.php?pid=9" target="_blank">
-                                    中心台站建设</a>
-                            </td>
-                            <td>
-                                <a href="../submit/code.php?id=91938" target="_blank">
-                                    +<i class="icon-ok"></i>
-                                </a>
-                                <a href="../problem/problem.php?pid=10" target="_blank">
-                                    信号无错传输</a>
-                            </td>
-                            <td>
-                                <a href="../submit/code.php?id=52455" target="_blank">
-                                    +<i class="icon-ok"></i>
-                                </a>
-                                <a href="../problem/problem.php?pid=11" target="_blank">
-                                    运输问题1</a>
-                            </td>
-                            <td>
-                                <a href="../submit/code.php?id=91985" target="_blank">
-                                    +<i class="icon-ok"></i>
-                                </a>
-                                <a href="../problem/problem.php?pid=12" target="_blank">
-                                    运输问题2</a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <a href="../submit/code.php?id=57849" target="_blank">
-                                    +<i class="icon-ok"></i>
-                                </a>
-                                <a href="../problem/problem.php?pid=13" target="_blank">
-                                    运输问题4</a>
-                            </td>
-                            <td>
-                                <a href="../submit/code.php?id=52460" target="_blank">
-                                    +<i class="icon-ok"></i>
-                                </a>
-                                <a href="../problem/problem.php?pid=14" target="_blank">
-                                    搭配飞行员</a>
-                            </td>
-                            <td>
-                                <a href="../submit/code.php?id=79264" target="_blank">
-                                    +<i class="icon-ok"></i>
-                                </a>
-                                <a href="../problem/problem.php?pid=15" target="_blank">
-                                    社交网络</a>
-                            </td>
-                        </tr>
+                        {% endfor %}
                     </tbody>
                 </table>
             </div>

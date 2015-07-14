@@ -91,8 +91,8 @@ class UserDetailView(TemplateView):
         else:
             user.percent = 0
 
-
-
+        records = Record.objects.filter(user=user).order_by('-create_datetime')
         context = super(UserDetailView, self).get_context_data(**kwargs)
         context['current_user'] = user
+        context['records'] = records
         return context
