@@ -18,7 +18,6 @@ def execute_program(self, record_id):
     try:
         record = Record.objects.get(pk=record_id)
     except Record.DoesNotExist:
-        execute_program.logger('invalid record id')
         return
 
     record.status = 'RUNNING'
@@ -132,7 +131,7 @@ def execute_program(self, record_id):
             RecordDetail.objects.create(
                 record=record,
                 status='AC',
-                score=0,
+                score=(float(1) / total_point) * 100,
                 time_used=0,
                 memory_used=0,
                 message=''
