@@ -68,6 +68,7 @@ class ProblemDetailView(TemplateView):
         context['description'] = problem.description
         context['input_format'] = problem.input_format
         context['output_format'] = problem.output_format
+        context['sample'] = problem.problemsample_set.all()
         context['limit'] = problem.limit
         context['tips'] = problem.tips
         context['source'] = problem.source

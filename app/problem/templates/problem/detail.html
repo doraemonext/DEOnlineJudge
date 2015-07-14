@@ -24,6 +24,15 @@
                         {{ output_format|safe }}
                     {% endif %}
 
+                    {% if sample %}
+                        {% for item in sample %}
+                            <h5><a href=""><strong>样例输入{{ forloop.counter }}</strong></a></h5>
+                            <p>{{ item.sample_input|linebreaksbr }}</p>
+                            <h5><a href=""><strong>样例输出{{ forloop.counter }}</strong></a></h5>
+                            <p>{{ item.sample_output|linebreaksbr }}</p>
+                        {% endfor %}
+                    {% endif %}
+
                     {% if limit %}
                         <h5><a href=""><strong>限制条件</strong></a></h5>
                         {{ limit|safe }}
