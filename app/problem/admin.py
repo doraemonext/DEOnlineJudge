@@ -4,12 +4,7 @@ from __future__ import absolute_import, unicode_literals
 
 from django.contrib import admin
 
-from app.problem.models import Problem, ProblemCategory, ProblemSample, Category
-
-
-class ProblemCategoryInline(admin.StackedInline):
-    model = ProblemCategory
-    min_num = 1
+from app.problem.models import Problem, ProblemSample, Category
 
 
 class ProblemSampleInline(admin.TabularInline):
@@ -25,7 +20,7 @@ class ProblemAdmin(admin.ModelAdmin):
     list_filter = ('title', 'source', 'judge_type', 'time_limit', 'memory_limit', 'data_input_extension',
                    'data_output_extension', 'create_datetime')
     search_fields = ['title', 'source']
-    inlines = [ProblemCategoryInline, ProblemSampleInline]
+    inlines = [ProblemSampleInline]
 
 
 @admin.register(Category)

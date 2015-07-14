@@ -14,6 +14,23 @@ class ProblemListView(TemplateView):
 
     def get_context_data(self, **kwargs):
         problem_list = Problem.objects.all()
+
+        search_problem_id = self.request.GET.get('problem_id', '')
+        search_problem_title = self.request.GET.get('problem_title', '')
+        search_category = self.request.GET.get('category', '')
+        search_source = self.request.GET.get('source', '')
+        if search_problem_id:
+            if search_problem_id.isdigit():
+                problem_list = problem_list.filter(pk=search_problem_id)
+            else:
+                problem_list = problem_list.filter(pk=0)  # 清空记录
+        if search_problem_title:
+            problem_list = problem_list.filter(title=search_problem_title)
+        if search_category:
+            problem_list = problem_list.filter(category__title=search_category)
+        if search_source:
+            problem_list = problem_list.filter(source=search_source)
+
         paginator = Paginator(problem_list, 20)
         page = self.request.GET.get('page')
         try:

@@ -5,6 +5,21 @@
 
 {% block content %}
     <div class="row">
+        <div class="pageheader no-border">
+            <form action="" method="get" class="searchbar">
+                <input type="text" name="problem_id" value="{{ search_problem_id }}" placeholder="题目ID">
+                <input type="text" name="problem_title" value="{{ search_problem_title }}" placeholder="题目名称">
+                <input type="text" name="category" value="{{ search_category }}" placeholder="分类名称">
+                <input type="text" name="source" value="{{ search_source }}" placeholder="来源">
+                <button class="btn btn-default">筛选</button>
+            </form>
+            <div class="pageicon"><span class="iconfa-laptop"></span></div>
+            <div class="pagetitle">
+                <h5>DE Online Judge</h5>
+                <h1>题目列表</h1>
+            </div>
+        </div>
+        <br/>
         <div class="col-md-9">
             <h3 class="subtitle2">题目列表</h3>
             <br/>
@@ -57,7 +72,7 @@
             <br/>
             <ul class="sidebarlist">
                 {% for category in categories %}
-                <li><i class="iconfa-angle-right"></i> <a href="">{{ category.title }} <span>0</span></a></li>
+                    <li><i class="iconfa-angle-right"></i> <a href="?category={{ category.title }}">{{ category.title }} <span>0</span></a></li>
                 {% endfor %}
             </ul>
         </div>

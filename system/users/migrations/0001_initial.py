@@ -23,6 +23,7 @@ class Migration(migrations.Migration):
                 ('email', models.EmailField(max_length=255, verbose_name='\u7535\u5b50\u90ae\u4ef6\u5730\u5740')),
                 ('nickname', models.CharField(max_length=30, verbose_name='\u6635\u79f0')),
                 ('is_active', models.BooleanField(default=False, verbose_name='\u662f\u5426\u6fc0\u6d3b')),
+                ('is_staff', models.BooleanField(default=False, verbose_name='\u662f\u5426\u5458\u5de5')),
                 ('date_joined', models.DateTimeField(default=django.utils.timezone.now, verbose_name='\u6ce8\u518c\u65e5\u671f')),
                 ('groups', models.ManyToManyField(related_query_name='user', related_name='user_set', to='auth.Group', blank=True, help_text='The groups this user belongs to. A user will get all permissions granted to each of their groups.', verbose_name='groups')),
                 ('user_permissions', models.ManyToManyField(related_query_name='user', related_name='user_set', to='auth.Permission', blank=True, help_text='Specific permissions for this user.', verbose_name='user permissions')),

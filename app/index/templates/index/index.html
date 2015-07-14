@@ -4,73 +4,11 @@
 {% block title %}DE Online Judge{% endblock %}
 
 {% block content %}
-    <div class="row">
-        <div id="dashboard-left" class="col-md-8">
-            <h5 class="subtitle">最新题目</h5><br/>
-            <table class="table table-bordered responsive">
-                <thead>
-                    <tr>
-                        <th class="head1">ID</th>
-                        <th class="head0">名称</th>
-                        <th class="head1">AC 次数</th>
-                        <th class="head0">提交人数</th>
-                        <th class="head1">来源</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for problem in problems %}
-                    <tr>
-                        <td>{{ problem.id }}</td>
-                        <td><a href="{% url 'problem:detail' id=problem.id %}">{{ problem.title }}</a></td>
-                        <td>{{ problem.ac_sum }}</td>
-                        <td class="center">{{ problem.total_sum }}</td>
-                        <td class="center">{{ problem.source }}</td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-            <br/>
-        </div>
 
-        <div id="dashboard-right" class="col-md-4">
-            <h5 class="subtitle">排行榜</h5><br/>
-            <div class="widgetbox">
-                <div class="headtitle">
-                    <h4 class="widgettitle">AC 排行榜</h4>
-                </div>
-                <div class="widgetcontent">
-                    <ul class="chatusers">
-                        {% for rank in ac_rank %}
-                        <li>
-                            <a href="{% url 'account:user_detail' id=rank.user.0.id %}"><span>{{ rank.user.0.nickname }}</span></a>
-                            <span class="msgcount">{{ rank.total }}</span></li>
-                        </li>
-                        {% endfor %}
-                    </ul>
-                </div>
-            </div>
-            <br/>
-            <div class="widgetbox">
-                <div class="headtitle">
-                    <h4 class="widgettitle">提交数排行榜</h4>
-                </div>
-                <div class="widgetcontent">
-                    <ul class="chatusers">
-                        {% for rank in total_rank %}
-                        <li>
-                            <a href="{% url 'account:user_detail' id=rank.user.0.id %}"><span>{{ rank.user.0.nickname }}</span></a>
-                            <span class="msgcount">{{ rank.total }}</span></li>
-                        </li>
-                        {% endfor %}
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
 {% endblock %}
 
 {% block customjs %}
     <script type="text/javascript">
-
+        window.location.href = "{% url 'problem:list' %}";
     </script>
 {% endblock %}

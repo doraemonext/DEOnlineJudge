@@ -7,7 +7,20 @@ from django.db import models
 from system.users.models import User
 
 
+class Category(models.Model):
+    title = models.CharField('分类名', max_length=128)
+
+    def __unicode__(self):
+        return self.title
+
+    class Meta:
+        verbose_name = '分类表'
+        verbose_name_plural = '分类表'
+        db_table = 'category'
+
+
 class Problem(models.Model):
+    category = models.ForeignKey(Category, verbose_name='分类', blank=True, null=True)
     title = models.CharField('标题', max_length=50)
     description = models.TextField('题目描述', blank=True)
     input_format = models.TextField('输入格式', blank=True)
@@ -32,18 +45,6 @@ class Problem(models.Model):
         db_table = 'problem'
 
 
-class Category(models.Model):
-    title = models.CharField('分类名', max_length=128)
-
-    def __unicode__(self):
-        return self.title
-
-    class Meta:
-        verbose_name = '分类表'
-        verbose_name_plural = '分类表'
-        db_table = 'category'
-
-
 class ProblemSample(models.Model):
     problem = models.ForeignKey(Problem, verbose_name='所属题目')
     sample_input = models.TextField('样例输入')
@@ -53,16 +54,6 @@ class ProblemSample(models.Model):
         verbose_name = '题目样例表'
         verbose_name_plural = '题目样例表'
         db_table = 'sample'
-
-
-class ProblemCategory(models.Model):
-    problem = models.ForeignKey(Problem, verbose_name='所属题目')
-    category = models.ForeignKey(Category, verbose_name='所属分类')
-
-    class Meta:
-        verbose_name = '题目分类表'
-        verbose_name_plural = '题目分类表'
-        db_table = 'problem_category'
 
 
 class ProblemDiscussion(models.Model):
