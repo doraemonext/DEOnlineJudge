@@ -154,6 +154,8 @@ CELERYBEAT_SCHEDULER = 'djcelery.schedulers.DatabaseScheduler'
 
 DJANGO_WYSIWYG_FLAVOR = "tinymce"
 
+GRAVATAR_URL = 'http://gravatar.duoshuo.com/'
+
 try:
     from local_settings import *
 except ImportError:

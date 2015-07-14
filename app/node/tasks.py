@@ -50,7 +50,7 @@ def execute_program(self, record_id):
             elif language == 'c++':
                 os.execlp('g++', 'g++', path, '-Wall', '-o', 'program')
             elif language == 'pascal':
-                os.execlp('fpc', 'fpc', path, '-o', 'program')
+                os.execlp('fpc', 'fpc', path, '-o' + os.path.join(output_dir, 'program'))
         except Exception as e:
             record.status = 'CE'
             record.message = e
