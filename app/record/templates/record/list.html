@@ -54,11 +54,11 @@
                     <tr>
                         <td>{{ record.id }}</td>
                         <td><a href="{% url 'problem:detail' id=record.problem.id %}">{{ record.problem.title }}</a></td>
-                        <th>{{ record.status }}</th>
+                        <th><a href="{% url 'record:detail' id=record.id %}">{{ record.status }}</a></th>
                         <th>{{ record.score }}</th>
                         <th>{{ record.time_used }}</th>
                         <th>{{ record.memory_used }}</th>
-                        <th>{{ record.user.nickname }}</th>
+                        <th><a href="{% url 'account:user_detail' id=record.user.id %}">{{ record.user.nickname }}</a></th>
                         <th>{{ record.language }}</th>
                         <th>{{ record.create_datetime|localtime }}</th>
                         <th><a href="{% url 'record:detail' id=record.id %}">查看详细</a></th>

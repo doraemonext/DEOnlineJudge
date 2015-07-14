@@ -10,7 +10,7 @@
             <div class="col-md-3">
                 <div class="peoplewrapper">
                     <div class="peopleinfo">
-                        <h4><a href="">{{ user.nickname }}</a> <span class="on"> {{ user.username }}</span></h4>
+                        <h4><a href="{% url 'account:user_detail' id=user.id %}">{{ user.nickname }}</a> <span class="on"> {{ user.username }}</span></h4>
                         <ul>
                             <li><span>电子邮件：</span> {{ user.email }}</li>
                             <li><span>正确率：</span> {{ user.percent }} %</li>

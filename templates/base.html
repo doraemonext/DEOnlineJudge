@@ -12,6 +12,7 @@
         <link rel="stylesheet" href="{% static 'css/style.default.css' %}"/>
         <link rel="stylesheet" href="{% static 'css/style.navyblue.css' %}"/>
         <link rel="stylesheet" href="{% static 'css/responsive-tables.css' %}">
+        <link rel="stylesheet" href="{% static 'css/font-awesome.min.css' %}">
         {% block customcss %}{% endblock %}
 
         <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -79,7 +80,7 @@
                                             <small>- {{ user.email }}</small>
                                         </h5>
                                         <ul>
-                                            <li><a class="option" href="#">我的记录</a></li>
+                                            <li><a class="option" href="{% url 'account:user_detail' id=user.id %}">我的主页</a></li>
                                             <li><a class="option" href="#">账户设置</a></li>
                                             <li><a class="option" id="logout" href="#">登出</a></li>
                                         </ul>
@@ -127,7 +128,7 @@
                                 $.makeCsrf(xhr, settings);
                             },
                             success: function(data) {
-                                window.location.href = data["redirect_url"];
+                                window.location.href = '';
                             },
                             statusCode: {
                                 400: function(xhr) {

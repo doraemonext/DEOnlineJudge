@@ -4,6 +4,7 @@ from __future__ import absolute_import, unicode_literals
 
 from django.core.urlresolvers import reverse
 from django.http.response import HttpResponseRedirect
+from django.http import Http404
 from django.views.generic import TemplateView
 
 from system.users.models import User
@@ -70,4 +71,28 @@ class UsersView(TemplateView):
 
         context = super(UsersView, self).get_context_data(**kwargs)
         context['users'] = users
+        return context
+
+
+class UserDetailView(TemplateView):
+    template_name = 'account/user_detail.html'
+
+    def get_context_data(self, **kwargs):
+        try:
+            user = User.objects.get(pk=self.kwargs.get('id'))
+        except User.DoesNotExist:
+            raise Http404()
+        record = Record.objects.filter(user=user)
+        user.total_sum = record.count()
+        record = record.filter(status='AC')
+        user.ac_sum = record.count()
+        if user.total_sum > 0:
+            user.percent = int(float(user.ac_sum) / user.total_sum * 100)
+        else:
+            user.percent = 0
+
+
+
+        context = super(UserDetailView, self).get_context_data(**kwargs)
+        context['user'] = user
         return context

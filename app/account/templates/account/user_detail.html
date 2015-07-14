@@ -1,0 +1,272 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% load tz %}
+
+{% block customcss %}
+    <style>
+        .profile {
+            margin: 20px 0;
+        }
+
+        .profile-sidebar {
+            padding: 20px 0 10px 0;
+            background: #fff;
+        }
+
+        .profile-userpic img {
+            float: none;
+            margin: 0 auto;
+            width: 50%;
+            height: 50%;
+            -webkit-border-radius: 50% !important;
+            -moz-border-radius: 50% !important;
+            border-radius: 50% !important;
+        }
+
+        .profile-usertitle {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .profile-usertitle-name {
+            color: #5a7391;
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 7px;
+        }
+
+        .profile-usertitle-job {
+            text-transform: uppercase;
+            color: #5b9bd1;
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+
+        .profile-userbuttons {
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        .profile-userbuttons .btn {
+            text-transform: uppercase;
+            font-size: 11px;
+            font-weight: 600;
+            padding: 6px 15px;
+            margin-right: 5px;
+        }
+
+        .profile-userbuttons .btn:last-child {
+            margin-right: 0px;
+        }
+
+        .profile-usermenu {
+            margin-top: 30px;
+        }
+
+        .profile-usermenu ul li {
+            border-bottom: 1px solid #f0f4f7;
+        }
+
+        .profile-usermenu ul li:last-child {
+            border-bottom: none;
+        }
+
+        .profile-usermenu ul li a {
+            color: #93a3b5;
+            font-size: 14px;
+            font-weight: 400;
+        }
+
+        .profile-usermenu ul li a i {
+            margin-right: 8px;
+            font-size: 14px;
+        }
+
+        .profile-usermenu ul li a:hover {
+            background-color: #fafcfd;
+            color: #5b9bd1;
+        }
+
+        .profile-usermenu ul li.active {
+            border-bottom: none;
+        }
+
+        .profile-usermenu ul li.active a {
+            color: #5b9bd1;
+            background-color: #f6f9fb;
+            border-left: 2px solid #5b9bd1;
+            margin-left: -2px;
+        }
+
+        .profile-content {
+            padding: 20px;
+            background: #fff;
+            min-height: 460px;
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+    <div class="profile">
+        <div class="col-md-3">
+            <div class="profile-sidebar">
+
+                <div class="profile-userpic">
+                    <img src="{% static 'images/photos/Doraemonext.png' %}" class="img-responsive" alt="">
+                </div>
+
+                <div class="profile-usertitle">
+                    <div class="profile-usertitle-name">
+                        {{ user.nickname }}
+                    </div>
+                    <div class="profile-usertitle-job">
+                        {{ user.username }}
+                    </div>
+                </div>
+
+                <div class="profile-usermenu">
+                    <ul class="nav">
+                        <li>
+                            <a href="##"><i class="glyphicon glyphicon-flag"></i> 邮件地址：{{ user.email }} </a>
+                        </li>
+                        <li>
+                            <a href="##"><i class="glyphicon glyphicon-home"></i> AC 数：{{ user.ac_sum }} </a>
+                        </li>
+                        <li>
+                            <a href="##"><i class="glyphicon glyphicon-user"></i> 总提交数：{{ user.total_sum }} </a>
+                        </li>
+                        <li>
+                            <a href="##"><i class="glyphicon glyphicon-ok"></i> 正确率：{{ user.percent }} % </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-9">
+            <div class="profile-content">
+                <h5>用户全部AC记录</h5>
+                <br/>
+                <table class="table table-striped table-condensed table-bordered fiexd">
+                    <tbody>
+                        <tr>
+                            <td>
+                                <a href="../submit/code.php?id=26392" target="_blank">
+                                    +<i class="icon-ok"></i>
+                                </a>
+                                <a href="../problem/problem.php?pid=1" target="_blank">
+                                    加法问题</a>
+                            </td>
+                            <td>
+                                <a href="../submit/code.php?id=149462" target="_blank">
+                                    +<i class="icon-ok"></i>
+                                </a>
+                                <a href="../problem/problem.php?pid=2" target="_blank">
+                                    旅行计划</a>
+                            </td>
+                            <td>
+                                <a href="../submit/code.php?id=26535" target="_blank">
+                                    +<i class="icon-ok"></i>
+                                </a>
+                                <a href="../problem/problem.php?pid=3" target="_blank">
+                                    服务点设置</a>
+                            </td>
+                            <td>
+                                <a href="../submit/code.php?id=42442" target="_blank">
+                                    +<i class="icon-ok"></i>
+                                </a>
+                                <a href="../problem/problem.php?pid=4" target="_blank">
+                                    双服务点设置</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <a href="../submit/code.php?id=50372" target="_blank">
+                                    +<i class="icon-ok"></i>
+                                </a>
+                                <a href="../problem/problem.php?pid=5" target="_blank">
+                                    P服务点设置</a>
+                            </td>
+                            <td>
+                                <a href="../submit/code.php?id=52709" target="_blank">
+                                    +<i class="icon-ok"></i>
+                                </a>
+                                <a href="../problem/problem.php?pid=6" target="_blank">
+                                    线型网络</a>
+                            </td>
+                            <td>
+                                <a href="../submit/code.php?id=52370" target="_blank">
+                                    +<i class="icon-ok"></i>
+                                </a>
+                                <a href="../problem/problem.php?pid=7" target="_blank">
+                                    通信线路</a>
+                            </td>
+                            <td>
+                                <a href="../submit/code.php?id=119872" target="_blank">
+                                    +<i class="icon-ok"></i>
+                                </a>
+                                <a href="../problem/problem.php?pid=8" target="_blank">
+                                    备用交换机</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <a href="../submit/code.php?id=91904" target="_blank">
+                                    +<i class="icon-ok"></i>
+                                </a>
+                                <a href="../problem/problem.php?pid=9" target="_blank">
+                                    中心台站建设</a>
+                            </td>
+                            <td>
+                                <a href="../submit/code.php?id=91938" target="_blank">
+                                    +<i class="icon-ok"></i>
+                                </a>
+                                <a href="../problem/problem.php?pid=10" target="_blank">
+                                    信号无错传输</a>
+                            </td>
+                            <td>
+                                <a href="../submit/code.php?id=52455" target="_blank">
+                                    +<i class="icon-ok"></i>
+                                </a>
+                                <a href="../problem/problem.php?pid=11" target="_blank">
+                                    运输问题1</a>
+                            </td>
+                            <td>
+                                <a href="../submit/code.php?id=91985" target="_blank">
+                                    +<i class="icon-ok"></i>
+                                </a>
+                                <a href="../problem/problem.php?pid=12" target="_blank">
+                                    运输问题2</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <a href="../submit/code.php?id=57849" target="_blank">
+                                    +<i class="icon-ok"></i>
+                                </a>
+                                <a href="../problem/problem.php?pid=13" target="_blank">
+                                    运输问题4</a>
+                            </td>
+                            <td>
+                                <a href="../submit/code.php?id=52460" target="_blank">
+                                    +<i class="icon-ok"></i>
+                                </a>
+                                <a href="../problem/problem.php?pid=14" target="_blank">
+                                    搭配飞行员</a>
+                            </td>
+                            <td>
+                                <a href="../submit/code.php?id=79264" target="_blank">
+                                    +<i class="icon-ok"></i>
+                                </a>
+                                <a href="../problem/problem.php?pid=15" target="_blank">
+                                    社交网络</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <br>
+    <br>
+{% endblock %}

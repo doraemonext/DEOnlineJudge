@@ -42,7 +42,7 @@
                     <ul class="chatusers">
                         {% for rank in ac_rank %}
                         <li>
-                            <a href=""><span>{{ rank.user.0.nickname }}</span></a>
+                            <a href="{% url 'account:user_detail' id=rank.user.0.id %}"><span>{{ rank.user.0.nickname }}</span></a>
                             <span class="msgcount">{{ rank.total }}</span></li>
                         </li>
                         {% endfor %}
@@ -58,7 +58,7 @@
                     <ul class="chatusers">
                         {% for rank in total_rank %}
                         <li>
-                            <a href=""><span>{{ rank.user.0.nickname }}</span></a>
+                            <a href="{% url 'account:user_detail' id=rank.user.0.id %}"><span>{{ rank.user.0.nickname }}</span></a>
                             <span class="msgcount">{{ rank.total }}</span></li>
                         </li>
                         {% endfor %}
