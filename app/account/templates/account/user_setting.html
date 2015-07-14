@@ -1,0 +1,85 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% load tz %}
+
+{% block title %}账户设置 - DE Online Judge{% endblock %}
+
+{% block content %}
+    <div class="pageheader">
+        <div class="pageicon"><span class="iconfa-laptop"></span></div>
+        <div class="pagetitle">
+            <h5>DE Online Judge</h5>
+
+            <h1>账户设置</h1>
+        </div>
+    </div>
+    <br/>
+    <div class="row">
+        <div class="col-md-6">
+            <form action="#" class="editprofileform" method="post">
+                <div class="widgetbox login-information">
+                    <h4 class="widgettitle">更新密码</h4>
+                    <div class="widgetcontent form-horizontal">
+                        <div class="form-group">
+                            <label class="col-md-2 control-label">旧密码</label>
+                            <div class="col-md-10">
+                                <input type="password" name="old_password" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-2 control-label">新密码</label>
+                            <div class="col-md-10">
+                                <input type="password" name="password" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-2 control-label">确认新密码</label>
+                            <div class="col-md-10">
+                                <input type="password" name="confirm_password" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-2">
+                                <button type="submit" class="btn btn-primary btn-block">更新</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <div class="col-md-6">
+            <form action="#" class="editprofileform" method="post">
+                <div class="widgetbox login-information">
+                    <h4 class="widgettitle">个人资料设置</h4>
+                    <div class="widgetcontent form-horizontal">
+                        <div class="form-group">
+                            <label class="col-md-2 control-label">用户名</label>
+                            <div class="col-md-10">
+                                <input type="text" class="form-control" value="{{ current_user.username }}" disabled>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-2 control-label">昵称</label>
+                            <div class="col-md-10">
+                                <input type="text" name="nickname" class="form-control" value="{{ current_user.nickname }}">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-2 control-label">电子邮件</label>
+                            <div class="col-md-10">
+                                <input type="text" name="email" class="form-control" value={{ current_user.email }}>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-2">
+                                <button type="submit" class="btn btn-primary btn-block">更新</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <!--col-md-8-->
+    </div>
+{% endblock %}

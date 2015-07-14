@@ -96,3 +96,28 @@ class UserDetailView(TemplateView):
         context['current_user'] = user
         context['records'] = records
         return context
+
+
+class UserSettingView(TemplateView):
+    template_name = 'account/user_setting.html'
+
+    def get_context_data(self, **kwargs):
+        try:
+            user = User.objects.get(pk=self.kwargs.get('id'))
+        except User.DoesNotExist:
+            raise Http404()
+        record = Record.objects.filter(user=user)
+        user.total_sum = record.count()
+        record = record.filter(status='AC').values_list('problem', flat=True).distinct()
+        user.ac_sum = record.count()
+        if user.total_sum > 0:
+            user.percent = int(float(user.ac_sum) / user.total_sum * 100)
+        else:
+            user.percent = 0
+
+        records = Record.objects.filter(user=user).order_by('-create_datetime')
+        context = super(UserSettingView, self).get_context_data(**kwargs)
+        context['current_user'] = user
+        context['records'] = records
+        return context
+

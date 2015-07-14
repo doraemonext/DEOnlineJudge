@@ -81,7 +81,7 @@
                                         </h5>
                                         <ul>
                                             <li><a class="option" href="{% url 'account:user_detail' id=user.id %}">我的主页</a></li>
-                                            <li><a class="option" href="#">账户设置</a></li>
+                                            <li><a class="option" href="{% url 'account:user_setting' id=user.id %}">账户设置</a></li>
                                             <li><a class="option" id="logout" href="#">登出</a></li>
                                         </ul>
                                     </div>
