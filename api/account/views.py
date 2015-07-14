@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 
-from django.contrib.auth import authenticate, login, logout, get_user_model
+from __future__ import absolute_import, unicode_literals
+
+from django.contrib.auth import authenticate, login, logout, get_user_model, get_user
 from django.core.urlresolvers import reverse
 from django.db import IntegrityError
 from rest_framework.views import APIView
@@ -8,7 +10,7 @@ from rest_framework.response import Response
 from rest_framework import permissions
 from rest_framework import status, parsers
 
-from api.account.serializer import LoginSerializer, RegistrationSerializer
+from api.account.serializer import LoginSerializer, RegistrationSerializer, UpdatePasswordSerializer, UpdateProfileSerializer
 
 
 class RegistrationAPI(APIView):
@@ -97,3 +99,45 @@ class LogoutAPI(APIView):
             'redirect_url': reverse('index:index'),
         }
         return Response(response, status=status.HTTP_200_OK)
+
+
+class UpdatePasswordAPI(APIView):
+    permission_classes = (permissions.IsAuthenticated, )
+    parser_classes = (parsers.FormParser, )
+
+    def post(self, request):
+        request_user = get_user(request)
+        serializer = UpdatePasswordSerializer(data=request.data)
+        if serializer.is_valid():
+            old_password = serializer.data.get('old_password')
+            password = serializer.data.get('password')
+
+            if not request_user.check_password(old_password):
+                response = {'non_field_errors': '检查旧密码时发生错误，请仔细核对'}
+                return Response(response, status=status.HTTP_400_BAD_REQUEST)
+            request_user.set_password(password)
+            request_user.save()
+            user = authenticate(username=request_user.username, password=password)
+            login(request, user)
+            return Response({})
+        else:
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class UpdateProfileAPI(APIView):
+    permission_classes = (permissions.IsAuthenticated, )
+    parser_classes = (parsers.FormParser, )
+
+    def post(self, request):
+        request_user = get_user(request)
+        serializer = UpdateProfileSerializer(data=request.data)
+        if serializer.is_valid():
+            nickname = serializer.data.get('nickname')
+            email = serializer.data.get('email')
+
+            request_user.nickname = nickname
+            request_user.email = email
+            request_user.save()
+            return Response({})
+        else:
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

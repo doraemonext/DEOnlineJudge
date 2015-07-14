@@ -6,10 +6,11 @@ from django.core.urlresolvers import reverse
 from django.http.response import HttpResponseRedirect
 from django.http import Http404
 from django.views.generic import TemplateView
+from django.contrib.auth import get_user
 
 from system.users.models import User
 from app.record.models import Record
-from lib.tools.mixin import AnonymousRequiredMixin
+from lib.tools.mixin import AnonymousRequiredMixin, LoginRequiredMixin
 
 
 class LoginView(AnonymousRequiredMixin, TemplateView):
@@ -98,14 +99,11 @@ class UserDetailView(TemplateView):
         return context
 
 
-class UserSettingView(TemplateView):
+class UserSettingView(LoginRequiredMixin, TemplateView):
     template_name = 'account/user_setting.html'
 
     def get_context_data(self, **kwargs):
-        try:
-            user = User.objects.get(pk=self.kwargs.get('id'))
-        except User.DoesNotExist:
-            raise Http404()
+        user = get_user(self.request)
         record = Record.objects.filter(user=user)
         user.total_sum = record.count()
         record = record.filter(status='AC').values_list('problem', flat=True).distinct()

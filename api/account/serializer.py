@@ -47,3 +47,21 @@ class RegistrationSerializer(serializers.Serializer):
         if attrs['password'] != attrs['confirm_password']:
             raise serializers.ValidationError('两次密码输入不一致')
         return attrs
+
+
+class UpdatePasswordSerializer(serializers.Serializer):
+    old_password = serializers.CharField(error_messages={'blank': '旧密码不能为空'})
+    password = serializers.CharField(error_messages={'blank': '密码不能为空'})
+    confirm_password = serializers.CharField(error_messages={'blank': '确认密码不能为空'})
+
+    def validate(self, attrs):
+        if attrs['password'] != attrs['confirm_password']:
+            raise serializers.ValidationError('两次密码输入不一致')
+        return attrs
+
+
+class UpdateProfileSerializer(serializers.Serializer):
+    nickname = serializers.CharField(error_messages={'blank': '昵称不能为空'})
+    email = serializers.CharField(error_messages={'blank': '电子邮件不能为空'}, validators=[
+        validator.EmailValue('电子邮件'),
+    ])

@@ -16,7 +16,7 @@
     <br/>
     <div class="row">
         <div class="col-md-6">
-            <form action="#" class="editprofileform" method="post">
+            <form action="{% url 'api:account:update_password' %}" class="editprofileform" method="post" id="update-password-form">
                 <div class="widgetbox login-information">
                     <h4 class="widgettitle">更新密码</h4>
                     <div class="widgetcontent form-horizontal">
@@ -49,7 +49,7 @@
         </div>
 
         <div class="col-md-6">
-            <form action="#" class="editprofileform" method="post">
+            <form action="{% url 'api:account:update_profile' %}" class="editprofileform" method="post" id="update-profile-form">
                 <div class="widgetbox login-information">
                     <h4 class="widgettitle">个人资料设置</h4>
                     <div class="widgetcontent form-horizontal">
@@ -82,4 +82,55 @@
         </div>
         <!--col-md-8-->
     </div>
+{% endblock %}
+
+{% block customjs %}
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#update-password-form').ajaxForm({
+                dataType: "json",
+                url: "{% url 'api:account:update_password' %}",
+                success: function(data) {
+                    jConfirm('密码已成功修改', '提示', function(r) {
+                        window.location.href = "{% url 'account:user_setting' %}";
+                    });
+                },
+                statusCode: {
+                    400: function(xhr) {
+                        var data = $.parseJSON(xhr.responseText);
+                        if ('old_password' in data) {
+                            $.makeDangerAlert(data['old_password'][0]);
+                        } else if ('password' in data) {
+                            $.makeDangerAlert(data['password'][0]);
+                        } else if ('confirm_password' in data) {
+                            $.makeDangerAlert(data['confirm_password'][0]);
+                        } else {
+                            $.makeDangerAlert(data['non_field_errors'][0]);
+                        }
+                    }
+                }
+            });
+            $('#update-profile-form').ajaxForm({
+                dataType: "json",
+                url: "{% url 'api:account:update_profile' %}",
+                success: function(data) {
+                    jConfirm('个人信息已成功修改', '提示', function(r) {
+                        window.location.href = "{% url 'account:user_setting' %}";
+                    });
+                },
+                statusCode: {
+                    400: function(xhr) {
+                        var data = $.parseJSON(xhr.responseText);
+                        if ('nickname' in data) {
+                            $.makeDangerAlert(data['nickname'][0]);
+                        } else if ('email' in data) {
+                            $.makeDangerAlert(data['email'][0]);
+                        } else {
+                            $.makeDangerAlert(data['non_field_errors'][0]);
+                        }
+                    }
+                }
+            });
+        });
+    </script>
 {% endblock %}
