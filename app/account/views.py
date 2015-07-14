@@ -62,7 +62,7 @@ class UsersView(TemplateView):
         for user in users:
             record = Record.objects.filter(user=user)
             user.total_sum = record.count()
-            record = record.filter(status='AC')
+            record = record.filter(status='AC').values_list('problem', flat=True).distinct()
             user.ac_sum = record.count()
             if user.total_sum > 0:
                 user.percent = int(float(user.ac_sum) / user.total_sum * 100)
@@ -84,7 +84,7 @@ class UserDetailView(TemplateView):
             raise Http404()
         record = Record.objects.filter(user=user)
         user.total_sum = record.count()
-        record = record.filter(status='AC')
+        record = record.filter(status='AC').values_list('problem', flat=True).distinct()
         user.ac_sum = record.count()
         if user.total_sum > 0:
             user.percent = int(float(user.ac_sum) / user.total_sum * 100)
@@ -94,5 +94,5 @@ class UserDetailView(TemplateView):
 
 
         context = super(UserDetailView, self).get_context_data(**kwargs)
-        context['user'] = user
+        context['current_user'] = user
         return context

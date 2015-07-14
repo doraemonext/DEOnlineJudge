@@ -128,7 +128,7 @@
                                 $.makeCsrf(xhr, settings);
                             },
                             success: function(data) {
-                                window.location.href = '';
+                                window.location.href = '{{ request.path }}';
                             },
                             statusCode: {
                                 400: function(xhr) {

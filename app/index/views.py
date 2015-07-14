@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 
+from __future__ import absolute_import, unicode_literals
+
 from django.core.urlresolvers import reverse
 from django.views.generic import TemplateView
 from django.db.models import Count
@@ -25,7 +27,7 @@ class IndexView(TemplateView):
         for problem in problems:
             record = Record.objects.filter(problem=problem)
             problem.total_sum = record.count()
-            record = record.filter(status='AC')
+            record = record.filter(status='AC').values_list('user', flat=True).distinct()
             problem.ac_sum = record.count()
 
         context = super(IndexView, self).get_context_data()

@@ -118,26 +118,26 @@
 
                 <div class="profile-usertitle">
                     <div class="profile-usertitle-name">
-                        {{ user.nickname }}
+                        {{ current_user.nickname }}
                     </div>
                     <div class="profile-usertitle-job">
-                        {{ user.username }}
+                        {{ current_user.username }}
                     </div>
                 </div>
 
                 <div class="profile-usermenu">
                     <ul class="nav">
                         <li>
-                            <a href="##"><i class="glyphicon glyphicon-flag"></i> 邮件地址：{{ user.email }} </a>
+                            <a href="##"><i class="glyphicon glyphicon-flag"></i> 邮件地址：{{ current_user.email }} </a>
                         </li>
                         <li>
-                            <a href="##"><i class="glyphicon glyphicon-home"></i> AC 数：{{ user.ac_sum }} </a>
+                            <a href="##"><i class="glyphicon glyphicon-home"></i> AC 数：{{ current_user.ac_sum }} </a>
                         </li>
                         <li>
-                            <a href="##"><i class="glyphicon glyphicon-user"></i> 总提交数：{{ user.total_sum }} </a>
+                            <a href="##"><i class="glyphicon glyphicon-user"></i> 总提交数：{{ current_user.total_sum }} </a>
                         </li>
                         <li>
-                            <a href="##"><i class="glyphicon glyphicon-ok"></i> 正确率：{{ user.percent }} % </a>
+                            <a href="##"><i class="glyphicon glyphicon-ok"></i> 正确率：{{ current_user.percent }} % </a>
                         </li>
                     </ul>
                 </div>
