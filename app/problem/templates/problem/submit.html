@@ -62,7 +62,7 @@
             <ul class="nav nav-tabs nav-stacked samplenavs">
                 <li class="active"><a href="##"><i class="iconfa-arrow-right"></i> &nbsp; 提交代码</a></li>
                 <li><a href="#"><i class="iconfa-comment"></i> &nbsp; 查看讨论</a></li>
-                <li><a href="#"><i class="iconfa-bar-chart"></i> &nbsp; 查看本题提交记录</a></li>
+                <li><a href="{% url 'record:list' %}?problem={{ problem_id }}"><i class="iconfa-bar-chart"></i> &nbsp; 查看本题提交记录</a></li>
             </ul>
         </div>
         <!--col-md-3-->

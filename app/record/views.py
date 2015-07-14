@@ -61,7 +61,7 @@ class RecordDetailView(TemplateView):
         queryset = Record.objects.filter(pk=record_id)
         if not queryset.exists():
             raise Http404()
-        problem = queryset[0]
+        record = queryset[0]
 
         context = super(RecordDetailView, self).get_context_data(**kwargs)
         return context

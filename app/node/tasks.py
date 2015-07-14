@@ -45,13 +45,18 @@ def execute_program(self, record_id):
     os.chdir(output_dir)
     pid = os.fork()
     if pid == 0:
-        if language == 'c':
-            os.execlp('gcc', 'gcc', path, '-Wall', '-o', 'program')
-        elif language == 'c++':
-            os.execlp('g++', 'g++', path, '-Wall', '-o', 'program')
-        elif language == 'pascal':
-            os.execlp('fpc', 'fpc', path, '-o', 'program')
-        return
+        try:
+            if language == 'c':
+                os.execlp('gcc', 'gcc', path, '-Wall', '-o', 'program')
+            elif language == 'c++':
+                os.execlp('g++', 'g++', path, '-Wall', '-o', 'program')
+            elif language == 'pascal':
+                os.execlp('fpc', 'fpc', path, '-o', 'program')
+        except Exception as e:
+            record.status = 'CE'
+            record.message = e
+            record.save()
+            return
     pid_info = os.waitpid(pid, 0)
     if os.WEXITSTATUS(pid_info[1]) > 0:
         record.status = 'CE'
@@ -163,6 +168,6 @@ def execute_program(self, record_id):
         record.status = 'TLE'
     else:
         record.status = 'AC'
-    record.score = int((status['AC'] / total_point) * 100)
+    record.score = int((float(status['AC']) / total_point) * 100)
     record.save()
     os.chdir(origin_dir)
