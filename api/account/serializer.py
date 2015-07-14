@@ -40,7 +40,6 @@ class RegistrationSerializer(serializers.Serializer):
     nickname = serializers.CharField(error_messages={'blank': '昵称不能为空'}, validators=[
         validator.MinValue('昵称', 2),
         validator.MaxValue('昵称', 30),
-        validator.SafeValue('昵称'),
     ])
     next = serializers.CharField(max_length=255, required=False, allow_blank=True)
 

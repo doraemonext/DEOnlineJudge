@@ -25,8 +25,8 @@
             <table class="table discussions">
                 <colgroup>
                     <col class="width5"/>
-                    <col class="width30"/>
-                    <col class="width5"/>
+                    <col class="width25"/>
+                    <col class="width10"/>
                     <col class="width5"/>
                     <col class="width5"/>
                     <col class="width5"/>
@@ -54,7 +54,29 @@
                     <tr>
                         <td>{{ record.id }}</td>
                         <td><a href="{% url 'problem:detail' id=record.problem.id %}">{{ record.problem.title }}</a></td>
-                        <th><a href="{% url 'record:detail' id=record.id %}">{{ record.status }}</a></th>
+                        <th><a href="{% url 'record:detail' id=record.id %}">
+                            {% ifequal 'AC' record.status %}
+                                <span style="color: green">Accept</span>
+                            {% endifequal %}
+                            {% ifequal 'WA' record.status %}
+                                <span style="color: red">Wrong Answer</span>
+                            {% endifequal %}
+                            {% ifequal 'RE' record.status %}
+                                <span style="color: orange">Runtime Error</span>
+                            {% endifequal %}
+                            {% ifequal 'CE' record.status %}
+                                <span style="color: black">Compile Error</span>
+                            {% endifequal %}
+                            {% ifequal 'WAIT' record.status %}
+                                <span style="color: deepskyblue">Waiting</span>
+                            {% endifequal %}
+                            {% ifequal 'RUNNING' record.status %}
+                                <span style="color: blue">Running</span>
+                            {% endifequal %}
+                            {% ifequal 'SYSERR' record.status %}
+                                <span style="color: red">System Error</span>
+                            {% endifequal %}
+                        </a></th>
                         <th>{{ record.score }}</th>
                         <th>{{ record.time_used }}</th>
                         <th>{{ record.memory_used }}</th>

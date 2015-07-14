@@ -48,8 +48,8 @@
                         <td>{{ problem.id }}</td>
                         <td><a href="{% url 'problem:detail' id=problem.id %}">{{ problem.title }}</a></td>
                         <td>{{ problem.category.title }}</td>
-                        <td>0</td>
-                        <td>0</td>
+                        <td>{{ problem.ac_count }}</td>
+                        <td>{{ problem.total_count }}</td>
                         <td>{{ problem.source }}</td>
                     </tr>
                     {% endfor %}

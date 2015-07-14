@@ -3,10 +3,13 @@
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/1.8/topics/http/urls/
 """
+from __future__ import absolute_import, unicode_literals
+
 from django.conf.urls import include, url
 from django.contrib import admin
 
 admin.autodiscover()
+admin.site.site_header = 'DE Online Judge'
 
 urlpatterns = [
     url(r'^$', include('app.index.urls', namespace='index')),

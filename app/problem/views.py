@@ -4,8 +4,10 @@ from django.core.urlresolvers import reverse
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.views.generic import TemplateView
 from django.http import Http404
+from django.db.models import Count
 
 from app.problem.models import Problem, Category
+from app.record.models import Record
 from lib.tools.mixin import LoginRequiredMixin
 
 
@@ -39,6 +41,13 @@ class ProblemListView(TemplateView):
             problems = paginator.page(1)
         except EmptyPage:
             problems = paginator.page(paginator.num_pages)
+        for problem in problems:
+            problem.total_count = Record.objects.filter(problem=problem).count()
+            ac_record_queryset = Record.objects.filter(problem=problem, status='AC').values('user').annotate(total=Count('user'))
+            if ac_record_queryset:
+                problem.ac_count = ac_record_queryset[0]['total']
+            else:
+                problem.ac_count = 0
 
         categories = Category.objects.all()
 
