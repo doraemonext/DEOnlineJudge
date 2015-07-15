@@ -105,18 +105,38 @@ def execute_program(self, record_id):
             os.execl(os.path.join(output_dir, 'program'), os.path.join(output_dir, 'program'))
             return
 
-        pid_info = os.waitpid(pid, 0)
-        if os.WEXITSTATUS(pid_info[1]) > 0:
+        counter = 0
+        run_flag = True
+        run_status = ''
+        while True:
+            pid_info = os.waitpid(pid, os.WNOHANG)
+            time.sleep(0.02)
+            counter += 1
+            if counter >= 50:
+                run_flag = False
+                run_status = 'TLE'
+                os.kill(pid, signal.SIGKILL)
+                break
+            if pid_info[0] == 0 and pid_info[1] == 0:
+                continue
+
+            if os.WEXITSTATUS(pid_info[1]) != 0:
+                run_flag = False
+                run_status = 'RE'
+            break
+        if not run_flag:
             RecordDetail.objects.create(
                 record=record,
-                status='RE',
+                status=run_status,
                 score=0,
-                time_used=0,
+                time_used=0.02 * counter * 1000,
                 memory_used=0,
-                message=os.WEXITSTATUS(pid_info[1]),
+                message='',
             )
+            print 'Program have run, but fail: %s, time: %s' % (run_status, 0.02 * counter * 1000)
             continue
-        print 'Program have ran. status: %s' % (os.WEXITSTATUS(pid_info[1]))
+
+        print 'Program have ran.'
 
         # 准备输出文件
         try:
