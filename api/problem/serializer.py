@@ -14,3 +14,10 @@ class ProblemSubmitSerializer(serializers.Serializer):
         if value not in ['C', 'C++', 'Pascal']:
             raise serializers.ValidationError('语言选择错误')
         return value
+
+    def validate_source_code(self, value):
+        keywords = ['system', 'socket', 'shutdown', 'reboot', 'init 0', 'init 6', 'signal']
+        for keyword in keywords:
+            if keyword in value:
+                raise serializers.ValidationError('代码中包含高危关键字，请检查并修改')
+        return value

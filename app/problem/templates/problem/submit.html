@@ -30,7 +30,7 @@
                             <label for="source_code" class="col-sm-2 control-label">程序代码</label>
 
                             <div class="col-sm-10">
-                                <textarea class="form-control" name="source_code" id="source_code" rows="15"></textarea>
+                                <textarea class="form-control" name="source_code" id="source_code" rows="20"></textarea>
                             </div>
                         </div>
                         <div class="form-group">
@@ -45,18 +45,30 @@
 
         <div class="col-md-3">
             <div class="alert alert-info">
-                <h4>题目运行环境</h4>
+                <h4>文件输入输出提醒</h4>
 
                 <div class="divider15"></div>
-                <p>
-                    <strong>内存：</strong>{{ memory_limit }} MB <br/>
-                    <strong>时间：</strong>{{ time_limit }} ms (每个测试点)<br/>
-                    {% ifequal 'CP' judge_type %}
-                        <strong>判题方式：</strong>普通
-                    {% else %}
-                        <strong>判题方式：</strong>Special Judge
-                    {% endifequal %}
-                </p>
+                <p>本 OJ 采用文件输入输出方式，文件名为对应题目ID，扩展名为in/out。</p>
+                <br/>
+                <h5 style="color: red">C/C++用户请使用下列代码</h5>
+                <br/>
+                <code>
+                    freopen("{{ problem_id }}.in", "r", stdin);<br/>
+                    freopen("{{ problem_id }}.out", "w", stdout);
+                </code>
+                <br/>
+                <br/>
+                <h5 style="color: red">Pascal用户请使用下列代码</h5>
+                <br/>
+                <code>
+                    assign(input, '{{ problem_id }}.in');<br/>
+                    assign(output, '{{ problem_id }}.out');<br/>
+                    reset(input);<br/>
+                    rewrite(output);<br/>
+                    <br/>
+                    close(input);<br/>
+                    close(output);<br/>
+                </code>
             </div>
 
             <ul class="nav nav-tabs nav-stacked samplenavs">
