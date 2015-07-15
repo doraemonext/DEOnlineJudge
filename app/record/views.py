@@ -68,6 +68,8 @@ class RecordDetailView(TemplateView):
         context['record_id'] = record.pk
         context['problem_id'] = record.problem.pk
         context['problem_title'] = record.problem.title
+        context['user_id'] = record.user.pk
+        context['user_nickname'] = record.user.nickname
         context['status'] = record.status
         context['score'] = record.score
         context['source_code'] = record.source_code

@@ -22,7 +22,7 @@
             </tr>
             <tr>
                 <th>用户昵称</th>
-                <td><a href="{% url 'account:user_detail' id=request.user.id %}">{{ request.user.nickname }}</a></td>
+                <td><a href="{% url 'account:user_detail' id=user_id %}">{{ user_nickname }}</a></td>
                 <th>测试点数</th>
                 <td><span class="ok">{{ total_point }}</span></td>
             </tr>
