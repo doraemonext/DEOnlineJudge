@@ -54,16 +54,73 @@
 
     <div class="topicpanel">
         <div class="topic-content">
-            {% for detail in record_detail %}
-                测试点 {{ forloop.counter }}：{{ detail.status }} （分数：{{ detail.score }}，时间：{{ detail.time_used }} ms，内存：{{ detail.memory_used }} MB）<br/>
-                {% if detail.message %}
+            <div class="colorize">
+                <div class="colorize-content">
+                    {% for detail in record_detail %}
+                        <span class="head">测试数据 #{{ forloop.counter }}:
+                            {% ifequal 'AC' detail.status %}
+                                <span style="color: green">Accept</span>
+                            {% endifequal %}
+                            {% ifequal 'WA' detail.status %}
+                                <span style="color: red">Wrong Answer</span>
+                            {% endifequal %}
+                            {% ifequal 'RE' detail.status %}
+                                <span style="color: orange">Runtime Error</span>
+                            {% endifequal %}
+                            {% ifequal 'CE' detail.status %}
+                                <span style="color: black">Compile Error</span>
+                            {% endifequal %}
+                            {% ifequal 'TLE' detail.status %}
+                                <span style="color: darkolivegreen">Timeout</span>
+                            {% endifequal %}
+                            {% ifequal 'WAIT' detail.status %}
+                                <span style="color: deepskyblue">Waiting</span>
+                            {% endifequal %}
+                            {% ifequal 'RUNNING' detail.status %}
+                                <span style="color: blue">Running</span>
+                            {% endifequal %}
+                            {% ifequal 'SYSERR' detail.status %}
+                                <span style="color: red">System Error</span>
+                            {% endifequal %}
+                        , time = {{ detail.time_used }} ms, mem = {{ detail.memory_used }} MB, score = {{ detail.score }}</span>
+                        <br/>
+                        {% if detail.message %}
+                            <br/>
+                            <div class="alert alert-danger">
+                                <code>{{ detail.message|linebreaksbr }}</code>
+                            </div>
+                            <br/>
+                        {% endif %}
+                    {% endfor %}
                     <br/>
-                    <div class="alert alert-block">
-                        <p>{{ detail.message|linebreaksbr }}</p>
-                    </div>
-                    <br/>
-                {% endif %}
-            {% endfor %}
+                    <span>最后状态：
+                        {% ifequal 'AC' status %}
+                            <span style="color: green">Accept</span>
+                        {% endifequal %}
+                        {% ifequal 'WA' status %}
+                            <span style="color: red">Wrong Answer</span>
+                        {% endifequal %}
+                        {% ifequal 'RE' status %}
+                            <span style="color: orange">Runtime Error</span>
+                        {% endifequal %}
+                        {% ifequal 'CE' status %}
+                            <span style="color: black">Compile Error</span>
+                        {% endifequal %}
+                        {% ifequal 'TLE' status %}
+                            <span style="color: darkolivegreen">Timeout</span>
+                        {% endifequal %}
+                        {% ifequal 'WAIT' status %}
+                            <span style="color: deepskyblue">Waiting</span>
+                        {% endifequal %}
+                        {% ifequal 'RUNNING' status %}
+                            <span style="color: blue">Running</span>
+                        {% endifequal %}
+                        {% ifequal 'SYSERR' status %}
+                            <span style="color: red">System Error</span>
+                        {% endifequal %}
+                    , time = {{ time_used }} ms, mem = {{ memory_used }} MB, score = {{ score }}</span>
+                </div>
+            </div>
         </div>
         <!--topic-content-->
     </div>
