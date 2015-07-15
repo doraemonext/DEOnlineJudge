@@ -44,10 +44,7 @@ class ProblemListView(TemplateView):
         for problem in problems:
             problem.total_count = Record.objects.filter(problem=problem).count()
             ac_record_queryset = Record.objects.filter(problem=problem, status='AC').values('user').annotate(total=Count('user'))
-            if ac_record_queryset:
-                problem.ac_count = ac_record_queryset[0]['total']
-            else:
-                problem.ac_count = 0
+            problem.ac_count = len(ac_record_queryset)
 
         categories = Category.objects.all()
 
