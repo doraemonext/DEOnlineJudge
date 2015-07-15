@@ -7,10 +7,10 @@
     <table class="table table-striped table-condensed table-bordered fiexd">
         <tbody>
             <tr>
-                <th width="10%">记录编号</th>
-                <td width="40%">{{ record_id }}</td>
-                <th width="10%">评测结果</th>
-                <td width="40%">
+                <th width="60px">记录编号</th>
+                <td>{{ record_id }}</td>
+                <th width="60px">评测结果</th>
+                <td class="wrap" colspan="3">
                     {{ status }}
                 </td>
             </tr>
@@ -29,8 +29,14 @@
             <tr>
                 <th>代码语言</th>
                 <td>{{ language }}</td>
+                <th>运行时间</th>
+                <td>{{ time_used }} ms</td>
+            </tr>
+            <tr>
                 <th>提交时间</th>
                 <td>{{ create_datetime|localtime }}</td>
+                <th>运行内存</th>
+                <td>{{ memory_used }} MB</td>
             </tr>
         </tbody>
     </table>
