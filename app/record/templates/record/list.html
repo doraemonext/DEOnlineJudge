@@ -70,6 +70,9 @@
                             {% ifequal 'TLE' record.status %}
                                 <span style="color: darkolivegreen">Timeout</span>
                             {% endifequal %}
+                            {% ifequal 'MLE' record.status %}
+                                <span style="color: darkolivegreen">Memory Limit Exceed</span>
+                            {% endifequal %}
                             {% ifequal 'WAIT' record.status %}
                                 <span style="color: deepskyblue">Waiting</span>
                             {% endifequal %}

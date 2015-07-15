@@ -73,6 +73,9 @@
                             {% ifequal 'TLE' detail.status %}
                                 <span style="color: darkolivegreen">Timeout</span>
                             {% endifequal %}
+                            {% ifequal 'MLE' detail.status %}
+                                <span style="color: darkolivegreen">Memory Limit Exceed</span>
+                            {% endifequal %}
                             {% ifequal 'WAIT' detail.status %}
                                 <span style="color: deepskyblue">Waiting</span>
                             {% endifequal %}
@@ -108,6 +111,9 @@
                         {% endifequal %}
                         {% ifequal 'TLE' status %}
                             <span style="color: darkolivegreen">Timeout</span>
+                        {% endifequal %}
+                        {% ifequal 'MLE' status %}
+                            <span style="color: darkolivegreen">Memory Limit Exceed</span>
                         {% endifequal %}
                         {% ifequal 'WAIT' status %}
                             <span style="color: deepskyblue">Waiting</span>

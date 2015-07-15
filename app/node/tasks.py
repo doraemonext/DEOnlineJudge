@@ -91,6 +91,7 @@ def execute_program(self, record_id):
     os.chdir(output_dir)
     time_used = 0
     memory_used = 0.0
+    memory_limit = record.problem.memory_limit
     for infile in file_list:
         outfile = infile[0:-len(in_ext)]+out_ext
         shutil.copyfile(infile, os.path.join(output_dir, str(record.problem.pk)+'.in'))
@@ -121,6 +122,11 @@ def execute_program(self, record_id):
                 try:
                     memory = p.memory_info()
                     memory_max = max(memory.rss, memory_max)
+                    if memory_max > memory_limit * 1024 * 1024:
+                        run_flag = False
+                        run_status = 'MLE'
+                        os.kill(pid, signal.SIGKILL)
+                        break
                 except Exception as exc:
                     pass
 
@@ -212,6 +218,7 @@ def execute_program(self, record_id):
         'RE': 0,
         'CE': 0,
         'TLE': 0,
+        'MLE': 0,
     }
     for result in result_list:
         status[result] += 1
@@ -223,6 +230,8 @@ def execute_program(self, record_id):
         record.status = 'CE'
     elif status['TLE'] > 0:
         record.status = 'TLE'
+    elif status['MLE'] > 0:
+        record.status = 'MLE'
     else:
         record.status = 'AC'
     record.score = int((float(status['AC']) / total_point) * 100)
