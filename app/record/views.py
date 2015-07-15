@@ -75,6 +75,7 @@ class RecordDetailView(TemplateView):
         context['time_used'] = record.time_used
         context['memory_used'] = record.memory_used
         context['language'] = record.language
+        context['message'] = record.message
         context['create_datetime'] = record.create_datetime
         context['record_detail'] = record_detail
         return context
