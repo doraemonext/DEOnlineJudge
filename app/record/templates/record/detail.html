@@ -49,7 +49,7 @@
     <div class="topicpanel">
         <div class="topic-content">
             {% for detail in record_detail %}
-                测试点 {{ forloop.counter }}：{{ detail.status }} （分数：{{ detail.score }}）<br/>
+                测试点 {{ forloop.counter }}：{{ detail.status }} （分数：{{ detail.score }}，时间：{{ detail.time_used }} ms，内存：{{ detail.memory_used }} MB）<br/>
                 {% if detail.message %}
                     <br/>
                     <div class="alert alert-block">

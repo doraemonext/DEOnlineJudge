@@ -3,16 +3,11 @@
 from __future__ import absolute_import, unicode_literals
 
 import os
-import sys
-import errno
-import select
 import signal
 import shutil
 import difflib
 import commands
-from io import BytesIO
 import time
-from StringIO import StringIO
 from tempfile import mkstemp, mkdtemp
 
 from DEOnlineJudge.celery import app
@@ -55,7 +50,6 @@ def execute_program(self, record_id):
     origin_dir = os.getcwd()
     output_dir = mkdtemp()
     print 'Working temp folder have created. path: %s' % output_dir
-    # os.chdir(output_dir)
 
     # 编译程序并判断是否编译正确
     status, output = 0, ''
@@ -76,7 +70,6 @@ def execute_program(self, record_id):
     print 'Compile Done. status=%s, output=%s' % (status, output)
 
     # 获取数据文件并检查共有多少个
-    # os.chdir(os.path.join(origin_dir, 'media/data', str(record.problem.pk)))
     data_dirpath = os.path.join(origin_dir, 'media/data', str(record.problem.pk))
     dirlist = os.listdir(data_dirpath)
     file_list = []
@@ -95,6 +88,7 @@ def execute_program(self, record_id):
     RecordDetail.objects.filter(record=record).delete()
     result_list = []
     os.chdir(output_dir)
+    time_used = 0
     for infile in file_list:
         outfile = infile[0:-len(in_ext)]+out_ext
         shutil.copyfile(infile, os.path.join(output_dir, str(record.problem.pk)+'.in'))
@@ -106,13 +100,15 @@ def execute_program(self, record_id):
             return
 
         counter = 0
+        timeout_counter = record.problem.time_limit
+        timeout_step = 0.001
         run_flag = True
         run_status = ''
         while True:
             pid_info = os.waitpid(pid, os.WNOHANG)
-            time.sleep(0.02)
+            time.sleep(timeout_step)
             counter += 1
-            if counter >= 50:
+            if counter >= timeout_counter:
                 run_flag = False
                 run_status = 'TLE'
                 os.kill(pid, signal.SIGKILL)
@@ -124,16 +120,18 @@ def execute_program(self, record_id):
                 run_flag = False
                 run_status = 'RE'
             break
+        time_used += timeout_step * counter * 1000
         if not run_flag:
             RecordDetail.objects.create(
                 record=record,
                 status=run_status,
                 score=0,
-                time_used=0.02 * counter * 1000,
+                time_used=timeout_step * counter * 1000,
                 memory_used=0,
                 message='',
             )
-            print 'Program have run, but fail: %s, time: %s' % (run_status, 0.02 * counter * 1000)
+            result_list.append(run_status)
+            print 'Program have run, but fail: %s, time: %s' % (run_status, timeout_step * counter * 1000)
             continue
 
         print 'Program have ran.'
@@ -147,10 +145,11 @@ def execute_program(self, record_id):
                 record=record,
                 status='RE',
                 score=0,
-                time_used=0,
+                time_used=timeout_step * counter * 1000,
                 memory_used=0,
                 message=exc,
             )
+            result_list.append('RE')
             continue
         print 'Found now output file: %s' % os.path.join(output_dir, str(record.problem.pk)+'.out')
 
@@ -178,7 +177,7 @@ def execute_program(self, record_id):
                 record=record,
                 status='AC',
                 score=(float(1) / total_point) * 100,
-                time_used=0,
+                time_used=timeout_step * counter * 1000,
                 memory_used=0,
                 message=''
             )
@@ -188,7 +187,7 @@ def execute_program(self, record_id):
                 record=record,
                 status='WA',
                 score=0,
-                time_used=0,
+                time_used=timeout_step * counter * 1000,
                 memory_used=0,
                 message=diff_result,
             )
@@ -215,4 +214,5 @@ def execute_program(self, record_id):
     else:
         record.status = 'AC'
     record.score = int((float(status['AC']) / total_point) * 100)
+    record.time_used = time_used
     record.save()

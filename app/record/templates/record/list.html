@@ -25,9 +25,11 @@
             <table class="table discussions">
                 <colgroup>
                     <col class="width5"/>
-                    <col class="width30"/>
+                    <col class="width25"/>
                     <col class="width10"/>
-                    <col class="width10"/>
+                    <col class="width5"/>
+                    <col class="width5"/>
+                    <col class="width5"/>
                     <col class="width10"/>
                     <col class="width10"/>
                     <col class="width15"/>
@@ -39,6 +41,8 @@
                         <th>题目</th>
                         <th>状态</th>
                         <th>得分</th>
+                        <th>时间(ms)</th>
+                        <th>内存(MB)</th>
                         <th>提交者</th>
                         <th>语言</th>
                         <th>提交时间</th>
@@ -63,6 +67,9 @@
                             {% ifequal 'CE' record.status %}
                                 <span style="color: black">Compile Error</span>
                             {% endifequal %}
+                            {% ifequal 'TLE' record.status %}
+                                <span style="color: darkolivegreen">Timeout</span>
+                            {% endifequal %}
                             {% ifequal 'WAIT' record.status %}
                                 <span style="color: deepskyblue">Waiting</span>
                             {% endifequal %}
@@ -74,6 +81,8 @@
                             {% endifequal %}
                         </a></th>
                         <th>{{ record.score }}</th>
+                        <th>{{ record.time_used }}</th>
+                        <th>{{ record.memory_used }}</th>
                         <th><a href="{% url 'account:user_detail' id=record.user.id %}">{{ record.user.nickname }}</a></th>
                         <th>{{ record.language }}</th>
                         <th>{{ record.create_datetime|localtime }}</th>
