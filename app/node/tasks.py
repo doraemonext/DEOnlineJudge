@@ -172,7 +172,7 @@ def execute_program(self, record_id):
         diff_now_lines = diff_now.splitlines()
         d = difflib.Differ()
         diff = d.compare(diff_origin_lines, diff_now_lines)
-        diff_result = '\n'.join(list(diff))
+        diff_result = '\n'.encode('utf-8').join(list(diff))
         origin_output.close()
         now_output.close()
         flag = True
