@@ -18,7 +18,7 @@ class Record(models.Model):
     total_point = models.IntegerField('测试点数', default=0)
     score = models.IntegerField('分数', default=0)
     time_used = models.IntegerField('所用时间', default=0)
-    memory_used = models.IntegerField('所用内存', default=0)
+    memory_used = models.FloatField('所用内存', default=0)
     message = models.TextField('运行信息', default='')
     language = models.CharField('所用语言', max_length=20)
     create_datetime = models.DateTimeField('创建时间', auto_now_add=True)
@@ -34,7 +34,7 @@ class RecordDetail(models.Model):
     status = models.CharField('当前状态', max_length=10)
     score = models.IntegerField('分数')
     time_used = models.IntegerField('所用时间')
-    memory_used = models.IntegerField('所用内存')
+    memory_used = models.FloatField('所用内存')
     message = models.TextField('运行信息', default='')
 
     class Meta:

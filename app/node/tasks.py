@@ -6,6 +6,7 @@ import os
 import signal
 import shutil
 import difflib
+import psutil
 import commands
 import time
 from tempfile import mkstemp, mkdtemp
@@ -89,6 +90,7 @@ def execute_program(self, record_id):
     result_list = []
     os.chdir(output_dir)
     time_used = 0
+    memory_used = 0.0
     for infile in file_list:
         outfile = infile[0:-len(in_ext)]+out_ext
         shutil.copyfile(infile, os.path.join(output_dir, str(record.problem.pk)+'.in'))
@@ -104,6 +106,8 @@ def execute_program(self, record_id):
         timeout_step = 0.001
         run_flag = True
         run_status = ''
+        p = psutil.Process(pid)
+        memory_max = 0
         while True:
             pid_info = os.waitpid(pid, os.WNOHANG)
             time.sleep(timeout_step)
@@ -114,6 +118,12 @@ def execute_program(self, record_id):
                 os.kill(pid, signal.SIGKILL)
                 break
             if pid_info[0] == 0 and pid_info[1] == 0:
+                try:
+                    memory = p.memory_info()
+                    memory_max = max(memory.rss, memory_max)
+                except Exception as exc:
+                    pass
+
                 continue
 
             if os.WEXITSTATUS(pid_info[1]) != 0:
@@ -121,13 +131,15 @@ def execute_program(self, record_id):
                 run_status = 'RE'
             break
         time_used += timeout_step * counter * 1000
+        memory_max = round(float(memory_max) / 1000000, 2)
+        memory_used = max(memory_used, memory_max)
         if not run_flag:
             RecordDetail.objects.create(
                 record=record,
                 status=run_status,
                 score=0,
                 time_used=timeout_step * counter * 1000,
-                memory_used=0,
+                memory_used=memory_max,
                 message='',
             )
             result_list.append(run_status)
@@ -146,7 +158,7 @@ def execute_program(self, record_id):
                 status='RE',
                 score=0,
                 time_used=timeout_step * counter * 1000,
-                memory_used=0,
+                memory_used=memory_max,
                 message=exc,
             )
             result_list.append('RE')
@@ -178,7 +190,7 @@ def execute_program(self, record_id):
                 status='AC',
                 score=(float(1) / total_point) * 100,
                 time_used=timeout_step * counter * 1000,
-                memory_used=0,
+                memory_used=memory_max,
                 message=''
             )
             result_list.append('AC')
@@ -188,7 +200,7 @@ def execute_program(self, record_id):
                 status='WA',
                 score=0,
                 time_used=timeout_step * counter * 1000,
-                memory_used=0,
+                memory_used=memory_max,
                 message=diff_result,
             )
             result_list.append('WA')
@@ -215,4 +227,5 @@ def execute_program(self, record_id):
         record.status = 'AC'
     record.score = int((float(status['AC']) / total_point) * 100)
     record.time_used = time_used
+    record.memory_used = memory_used
     record.save()
