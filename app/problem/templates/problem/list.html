@@ -1,0 +1,85 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block title %}题目列表 - DE Online Judge{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="pageheader no-border">
+            <form action="" method="get" class="searchbar">
+                <input type="text" name="problem_id" value="{{ search_problem_id }}" placeholder="题目ID">
+                <input type="text" name="problem_title" value="{{ search_problem_title }}" placeholder="题目名称">
+                <input type="text" name="category" value="{{ search_category }}" placeholder="分类名称">
+                <input type="text" name="source" value="{{ search_source }}" placeholder="来源">
+                <button class="btn btn-default">筛选</button>
+            </form>
+            <div class="pageicon"><span class="iconfa-laptop"></span></div>
+            <div class="pagetitle">
+                <h5>DE Online Judge</h5>
+                <h1>题目列表</h1>
+            </div>
+        </div>
+        <br/>
+        <div class="col-md-9">
+            <h3 class="subtitle2">题目列表</h3>
+            <br/>
+            <table class="table discussions">
+                <colgroup>
+                    <col class="width5"/>
+                    <col class="width35"/>
+                    <col class="width20"/>
+                    <col class="width10"/>
+                    <col class="width10"/>
+                    <col class="width20"/>
+                </colgroup>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>名称</th>
+                        <th>分类</th>
+                        <th>AC 人数</th>
+                        <th>提交人数</th>
+                        <th>来源</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for problem in problems %}
+                    <tr>
+                        <td>{{ problem.id }}</td>
+                        <td><a href="{% url 'problem:detail' id=problem.id %}">{{ problem.title }}</a></td>
+                        <td>{{ problem.category.title }}</td>
+                        <td>{{ problem.ac_count }}</td>
+                        <td>{{ problem.total_count }}</td>
+                        <td>{{ problem.source }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+            <div class="pager">
+                <ul class="pagination pagination-sm">
+                    {% if problems.has_previous %}
+                        <li><a href="?page={{ problems.previous_page_number }}{% for key,value in request.GET.items %}{% if key != 'page' %}&{{ key }}={{ value }}{% endif %}{% endfor %}">上一页</a></li>
+                    {% endif %}
+                    <li class="active"><a href="##">{{ problems.number }}</a></li>
+                    {% if problems.has_next %}
+                        <li><a href="?page={{ problems.next_page_number }}{% for key,value in request.GET.items %}{% if key != 'page' %}&{{ key }}={{ value }}{% endif %}{% endfor %}">下一页</a></li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+        <!--col-md-9-->
+
+        <div class="col-md-3">
+            <h3 class="subtitle2">分类</h3>
+            <br/>
+            <ul class="sidebarlist">
+                <li><i class="iconfa-angle-right"></i> <a href="?category=">全部</a></li>
+                {% for category in categories %}
+                    <li><i class="iconfa-angle-right"></i> <a href="?category={{ category.title }}">{{ category.title }} <span>{{ category.problem_set.count }}</span></a></li>
+                {% endfor %}
+            </ul>
+        </div>
+        <!--col-md-3-->
+    </div><!--row-->
+{% endblock %}

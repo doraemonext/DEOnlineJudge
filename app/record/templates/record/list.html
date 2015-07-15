@@ -1,0 +1,108 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% load tz %}
+
+{% block title %}DE Online Judge - 提交记录{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="pageheader no-border">
+                <form action="" method="get" class="searchbar">
+                    <input type="text" name="record" value="{{ search_record }}" placeholder="提交记录ID">
+                    <input type="text" name="problem" value="{{ search_problem }}" placeholder="题目名称或题目ID">
+                    <input type="text" name="user" value="{{ search_user }}" placeholder="提交者">
+                    <input type="text" name="language" value="{{ search_language }}" placeholder="语言">
+                    <button class="btn btn-default">筛选</button>
+                </form>
+                <div class="pageicon"><span class="iconfa-laptop"></span></div>
+                <div class="pagetitle">
+                    <h5>DE Online Judge</h5>
+                    <h1>提交记录</h1>
+                </div>
+            </div>
+            <br/>
+            <table class="table discussions">
+                <colgroup>
+                    <col class="width5"/>
+                    <col class="width25"/>
+                    <col class="width10"/>
+                    <col class="width5"/>
+                    <col class="width5"/>
+                    <col class="width5"/>
+                    <col class="width10"/>
+                    <col class="width10"/>
+                    <col class="width15"/>
+                    <col class="width10"/>
+                </colgroup>
+                <thead>
+                    <tr>
+                        <th>记录ID</th>
+                        <th>题目</th>
+                        <th>状态</th>
+                        <th>得分</th>
+                        <th>时间</th>
+                        <th>内存</th>
+                        <th>提交者</th>
+                        <th>语言</th>
+                        <th>提交时间</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for record in records %}
+                    <tr>
+                        <td>{{ record.id }}</td>
+                        <td><a href="{% url 'problem:detail' id=record.problem.id %}">{{ record.problem.title }}</a></td>
+                        <th><a href="{% url 'record:detail' id=record.id %}">
+                            {% ifequal 'AC' record.status %}
+                                <span style="color: green">Accept</span>
+                            {% endifequal %}
+                            {% ifequal 'WA' record.status %}
+                                <span style="color: red">Wrong Answer</span>
+                            {% endifequal %}
+                            {% ifequal 'RE' record.status %}
+                                <span style="color: orange">Runtime Error</span>
+                            {% endifequal %}
+                            {% ifequal 'CE' record.status %}
+                                <span style="color: black">Compile Error</span>
+                            {% endifequal %}
+                            {% ifequal 'TLE' record.status %}
+                                <span style="color: darkolivegreen">Timeout</span>
+                            {% endifequal %}
+                            {% ifequal 'WAIT' record.status %}
+                                <span style="color: deepskyblue">Waiting</span>
+                            {% endifequal %}
+                            {% ifequal 'RUNNING' record.status %}
+                                <span style="color: blue">Running</span>
+                            {% endifequal %}
+                            {% ifequal 'SYSERR' record.status %}
+                                <span style="color: red">System Error</span>
+                            {% endifequal %}
+                        </a></th>
+                        <th>{{ record.score }}</th>
+                        <th>{{ record.time_used }} ms</th>
+                        <th>{{ record.memory_used }} MB</th>
+                        <th><a href="{% url 'account:user_detail' id=record.user.id %}">{{ record.user.nickname }}</a></th>
+                        <th>{{ record.language }}</th>
+                        <th>{{ record.create_datetime|localtime }}</th>
+                        <th><a href="{% url 'record:detail' id=record.id %}">查看详细</a></th>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+            <div class="pager">
+                <ul class="pagination pagination-sm">
+                    {% if records.has_previous %}
+                        <li><a href="?page={{ records.previous_page_number }}{% for key,value in request.GET.items %}{% if key != 'page' %}&{{ key }}={{ value }}{% endif %}{% endfor %}">上一页</a></li>
+                    {% endif %}
+                    <li class="active"><a href="##">{{ records.number }}</a></li>
+                    {% if records.has_next %}
+                        <li><a href="?page={{ records.next_page_number }}{% for key,value in request.GET.items %}{% if key != 'page' %}&{{ key }}={{ value }}{% endif %}{% endfor %}">下一页</a></li>
+                    {% endif %}
+                </ul>
+            </div>        
+        </div>
+    </div><!--row-->
+{% endblock %}

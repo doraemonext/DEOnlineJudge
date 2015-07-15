@@ -1,0 +1,212 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% load gravatar %}
+{% load tz %}
+
+{% block title %}{{ current_user.nickname }} - DE Online Judge{% endblock %}
+
+{% block customcss %}
+    <style>
+        .profile {
+            margin: 20px 0;
+        }
+
+        .profile-sidebar {
+            padding: 20px 0 10px 0;
+            background: #fff;
+        }
+
+        .profile-userpic img {
+            float: none;
+            margin: 0 auto;
+            width: 50%;
+            height: 50%;
+            -webkit-border-radius: 50% !important;
+            -moz-border-radius: 50% !important;
+            border-radius: 50% !important;
+        }
+
+        .profile-usertitle {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .profile-usertitle-name {
+            color: #5a7391;
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 7px;
+        }
+
+        .profile-usertitle-job {
+            text-transform: uppercase;
+            color: #5b9bd1;
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+
+        .profile-userbuttons {
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        .profile-userbuttons .btn {
+            text-transform: uppercase;
+            font-size: 11px;
+            font-weight: 600;
+            padding: 6px 15px;
+            margin-right: 5px;
+        }
+
+        .profile-userbuttons .btn:last-child {
+            margin-right: 0px;
+        }
+
+        .profile-usermenu {
+            margin-top: 30px;
+        }
+
+        .profile-usermenu ul li {
+            border-bottom: 1px solid #f0f4f7;
+        }
+
+        .profile-usermenu ul li:last-child {
+            border-bottom: none;
+        }
+
+        .profile-usermenu ul li a {
+            color: #93a3b5;
+            font-size: 14px;
+            font-weight: 400;
+        }
+
+        .profile-usermenu ul li a i {
+            margin-right: 8px;
+            font-size: 14px;
+        }
+
+        .profile-usermenu ul li a:hover {
+            background-color: #fafcfd;
+            color: #5b9bd1;
+        }
+
+        .profile-usermenu ul li.active {
+            border-bottom: none;
+        }
+
+        .profile-usermenu ul li.active a {
+            color: #5b9bd1;
+            background-color: #f6f9fb;
+            border-left: 2px solid #5b9bd1;
+            margin-left: -2px;
+        }
+
+        .profile-content {
+            padding: 20px;
+            background: #fff;
+            min-height: 460px;
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+    <div class="profile">
+        <div class="col-md-3">
+            <div class="profile-sidebar">
+
+                <div class="profile-userpic">
+                    <img src="{% gravatar_url user.email 150 %}" class="img-responsive" alt="">
+                </div>
+
+                <div class="profile-usertitle">
+                    <div class="profile-usertitle-name">
+                        {{ current_user.nickname }}
+                    </div>
+                    <div class="profile-usertitle-job">
+                        {{ current_user.username }}
+                    </div>
+                </div>
+
+                <div class="profile-usermenu">
+                    <ul class="nav">
+                        <li>
+                            <a href="##"><i class="glyphicon glyphicon-flag"></i> 邮件地址：{{ current_user.email }} </a>
+                        </li>
+                        <li>
+                            <a href="##"><i class="glyphicon glyphicon-home"></i> AC 数：{{ current_user.ac_sum }} </a>
+                        </li>
+                        <li>
+                            <a href="##"><i class="glyphicon glyphicon-user"></i> 总提交数：{{ current_user.total_sum }} </a>
+                        </li>
+                        <li>
+                            <a href="##"><i class="glyphicon glyphicon-ok"></i> 正确率：{{ current_user.percent }} % </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-9">
+            <div class="profile-content">
+                <h4 class="widgettitle">用户全部提交记录</h4>
+                <table class="table responsive">
+                    <thead>
+                        <tr>
+                            <th>记录ID</th>
+                            <th>题目标题</th>
+                            <th>状态</th>
+                            <th>时间</th>
+                            <th>内存</th>
+                            <th>分数</th>
+                            <th>语言</th>
+                            <th>时间</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for record in records %}
+                        <tr>
+                            <td><a href="{% url 'record:detail' id=record.id %}">{{ record.id }}</a></td>
+                            <td><a href="{% url 'problem:detail' id=record.problem.id %}">{{ record.problem.title }}</a></td>
+                            <td><strong><a href="{% url 'record:detail' id=record.id %}">
+                                {% ifequal 'AC' record.status %}
+                                    <span style="color: green">Accept</span>
+                                {% endifequal %}
+                                {% ifequal 'WA' record.status %}
+                                    <span style="color: red">Wrong Answer</span>
+                                {% endifequal %}
+                                {% ifequal 'RE' record.status %}
+                                    <span style="color: orange">Runtime Error</span>
+                                {% endifequal %}
+                                {% ifequal 'CE' record.status %}
+                                    <span style="color: black">Compile Error</span>
+                                {% endifequal %}
+                                {% ifequal 'TLE' record.status %}
+                                    <span style="color: darkolivegreen">Timeout</span>
+                                {% endifequal %}
+                                {% ifequal 'WAIT' record.status %}
+                                    <span style="color: deepskyblue">Waiting</span>
+                                {% endifequal %}
+                                {% ifequal 'RUNNING' record.status %}
+                                    <span style="color: blue">Running</span>
+                                {% endifequal %}
+                                {% ifequal 'SYSERR' record.status %}
+                                    <span style="color: red">System Error</span>
+                                {% endifequal %}
+                            </a></strong></td>
+                            <td>{{ record.time_used }} ms</td>
+                            <td>{{ record.memory_used }} MB</td>
+                            <td>{{ record.score }}</td>
+                            <td>{{ record.language }}</td>
+                            <td>{{ record.create_datetime|localtime }}</td>
+                            <td class="center"><a href="{% url 'record:detail' id=record.id %}">查看详情</a></td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <br>
+    <br>
+{% endblock %}

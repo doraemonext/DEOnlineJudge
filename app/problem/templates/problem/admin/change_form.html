@@ -1,0 +1,17 @@
+{% extends "admin/change_form.html" %}
+
+{% load wysiwyg %}
+
+{% block extrahead %}
+    {{ block.super }}
+    {% wysiwyg_setup %}
+{% endblock %}
+
+{% block content %}
+    {{ block.super }}
+    {% wysiwyg_editor "id_description" %}
+    {% wysiwyg_editor "id_input_format" %}
+    {% wysiwyg_editor "id_output_format" %}
+    {% wysiwyg_editor "id_limit" %}
+    {% wysiwyg_editor "id_tips" %}
+{% endblock %}

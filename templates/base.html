@@ -1,0 +1,150 @@
+{% load staticfiles %}
+{% load gravatar %}
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+        <title>{% block title %}{% endblock %}</title>
+
+        <link rel="stylesheet" href="{% static 'css/style.default.css' %}"/>
+        <link rel="stylesheet" href="{% static 'css/style.navyblue.css' %}"/>
+        <link rel="stylesheet" href="{% static 'css/responsive-tables.css' %}">
+        <link rel="stylesheet" href="{% static 'css/font-awesome.min.css' %}">
+        {% block customcss %}{% endblock %}
+
+        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+            <script src="{% static 'js/html5shiv.js' %}"></script>
+            <script src="{% static 'js/respond.min.js' %}"></script>
+        <![endif]-->
+
+        <script src="{% static 'js/jquery-1.10.2.min.js' %}"></script>
+        <script src="{% static 'js/jquery-migrate-1.2.1.min.js' %}"></script>
+        <script src="{% static 'js/jquery-ui-1.10.3.min.js' %}"></script>
+        <script src="{% static 'js/jquery.form.min.js' %}"></script>
+
+        <script src="{% static 'js/bootstrap.min.js' %}"></script>
+
+        <script src="{% static 'js/modernizr.min.js' %}"></script>
+        <script src="{% static 'js/jquery.cookies.js' %}"></script>
+        <script src="{% static 'js/jquery.uniform.min.js' %}"></script>
+        <script src="{% static 'js/jquery.alerts.js' %}"></script>
+        <script src="{% static 'js/flot/jquery.flot.min.js' %}"></script>
+        <script src="{% static 'js/flot/jquery.flot.resize.min.js' %}"></script>
+        <script src="{% static 'js/responsive-tables.js' %}"></script>
+        <script src="{% static 'js/jquery.slimscroll.js' %}"></script>
+
+        <script src="{% static 'js/custom.js' %}"></script>
+
+        <!--[if lte IE 8]>
+            <script src="{% static 'js/excanvas.min.js' %}"></script>
+        <![endif]-->
+    </head>
+
+    <body>
+        <div id="mainwrapper" class="mainwrapper">
+            <div class="header">
+                <div class="logo">
+                    <a href="{% url 'index:index' %}"><img src="{% static 'images/logo.png' %}" alt=""/></a>
+                </div>
+                <div class="headerinner">
+                    <ul class="headmenu">
+                        <li {% if 'problem' in request.path %}class="odd"{% endif %}>
+                            <a class="dropdown-toggle" href="{% url 'problem:list' %}">
+                                <span class="head-icon head-message"></span>
+                                <span class="headmenu-label">题目</span>
+                            </a>
+                        </li>
+                        <li {% if 'record' in request.path %}class="odd"{% endif %}>
+                            <a class="dropdown-toggle" href="{% url 'record:list' %}">
+                                <span class="head-icon head-bar"></span>
+                                <span class="headmenu-label">记录</span>
+                            </a>
+                        </li>
+                        <li {% if 'user' in request.path %}class="odd"{% endif %}>
+                            <a class="dropdown-toggle" href="{% url 'account:users' %}">
+                                <span class="head-icon head-users"></span>
+                                <span class="headmenu-label">用户</span>
+                            </a>
+                        </li>
+                        <li class="right">
+                            <div class="userloggedinfo">
+                                {% if user.is_authenticated %}
+                                    <img src="{% gravatar_url user.email 100 %}" alt=""/>
+
+                                    <div class="userinfo">
+                                        <h5>{{ user.nickname }}
+                                            <small>- {{ user.email }}</small>
+                                        </h5>
+                                        <ul>
+                                            <li><a class="option" href="{% url 'account:user_detail' id=user.id %}">我的主页</a></li>
+                                            <li><a class="option" href="{% url 'account:user_setting' %}">账户设置</a></li>
+                                            <li><a class="option" id="logout" href="#">登出</a></li>
+                                        </ul>
+                                    </div>
+                                {% else %}
+                                    <div class="userinfo">
+                                        <ul style="width: 180px">
+                                            <li><a href="{% url 'account:login' %}" class="btn btn-block btn-info">登录</a></li>
+                                            <li style="margin-top: 15px"><a href="{% url 'account:registration' %}" class="btn btn-block btn-success">注册</a></li>
+                                        </ul>
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </li>
+                    </ul>
+                    <!--headmenu-->
+                </div>
+            </div>
+
+            <div class="rightpanel">
+                <div class="maincontent">
+                    <div class="maincontentinner">
+                        {% block content %}{% endblock %}
+
+                        <div class="footer">
+                            <div class="footer-left">
+                                <span>&copy; 2015. DE Online Judge. All Rights Reserved.</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {% if user.is_authenticated %}
+            <script type="text/javascript">
+                $(document).ready(function () {
+                    var winSize = $(window).height();
+                    if($('.rightpanel').height() < winSize) {
+                        $('.rightpanel').height(winSize);
+                    }
+                    $('#logout').click(function () {
+                        $.ajax({
+                            type: "POST",
+                            dataType: "json",
+                            url: "{% url 'api:account:logout' %}",
+                            cache: false,
+                            beforeSend: function (xhr, settings) {
+                                $.makeCsrf(xhr, settings);
+                            },
+                            success: function(data) {
+                                window.location.href = '{{ request.path }}';
+                            },
+                            statusCode: {
+                                400: function(xhr) {
+                                    $.makeDangerAlert("登出过程中出错，请重试")
+                                }
+                            }
+                        });
+                    });
+                });
+            </script>
+        {% endif %}
+        {% block customjs %}{% endblock %}
+    </body>
+</html>

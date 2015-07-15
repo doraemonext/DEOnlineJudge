@@ -1,0 +1,61 @@
+{% extends 'account/base.html' %}
+{% load staticfiles %}
+
+{% block title %}登录{% endblock %}
+
+{% block content %}
+    <div class="regpanel">
+        <div class="regpanelinner">
+            <div class="pageheader">
+                <div class="pageicon"><span class="iconfa-hand-down"></span></div>
+                <div class="pagetitle">
+                    <h5>DE Online Judge</h5>
+                    <h1>账户登录</h1>
+                </div>
+            </div>
+            <div class="regcontent">
+                <form method="post" class="stdform" id="login-form">
+                    <input type="hidden" name="next" id="next" value="{{ next }}">
+                    <h3 class="subtitle">用户名</h3>
+                    <div class="form-group">
+                        <input type="text" name="username" class="form-control" placeholder=""/>
+                    </div>
+                    <h3 class="subtitle">密码</h3>
+                    <p><input type="password" name="password" class="form-control" placeholder=""/></p>
+                    <br/>
+                    <p>
+                        <button type="submit" class="btn btn-primary">登录</button>
+                    </p>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block customjs %}
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#login-form').ajaxForm({
+                dataType: "json",
+                url: "{% url 'api:account:login' %}",
+                success: function(data) {
+                    window.location.href = data["redirect_url"];
+                },
+                statusCode: {
+                    400: function(xhr) {
+                        var data = $.parseJSON(xhr.responseText);
+                        if ('username' in data) {
+                            $.makeDangerAlert(data['username'][0]);
+                        } else if ('password' in data) {
+                            $.makeDangerAlert(data['password'][0]);
+                        } else if ('next' in data) {
+                            $.makeDangerAlert(data['next'][0]);
+                        } else {
+                            $.makeDangerAlert(data['non_field_errors'][0]);
+                        }
+                    }
+                }
+            });
+        });
+    </script>
+{% endblock %}
